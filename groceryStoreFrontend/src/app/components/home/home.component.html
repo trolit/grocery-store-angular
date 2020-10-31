@@ -1,3 +1,24 @@
-<h1>Witajcie z <strong>welcome.component</strong> po zmianach w strukturze folderu</h1>
-<br/>
-<app-products></app-products>
+<mat-drawer-container class="home-container" autosize>
+    <mat-drawer #drawer class="home-sidenav" mode="side">
+        <app-sidebar></app-sidebar>
+    </mat-drawer>
+  
+    <div class="home-sidenav-content">
+        <div class="home-brand">
+            <mat-grid-list cols="1" rowHeight="600px">
+                <mat-grid-tile>
+                    <div>
+                        <div>
+                            <span class="iconify brand-icon float-left" data-icon="emojione:shopping-cart" data-inline="false"></span>
+                            <h1 class="m-0 p-0 float-left" style="padding-top: 15px;">Grocery</h1>
+                            <h1 class="m-0 p-0">Store<span class="iconify angular-icon" data-icon="logos:angular-icon" data-inline="false"></span></h1>
+                        </div>
+                        <mat-card class="subtitle">Everything your <strong class="roboto-font">home</strong> needs <span class="iconify subtitle-icon" data-icon="heroicons-outline:emoji-happy" data-inline="false"></span></mat-card>
+                        <br/>
+                        <button mat-raised-button color="primary" (click)="drawer.toggle()" style="width: 250px; height: 100px;"><span class="iconify shopping-icon" data-icon="clarity:cursor-hand-click-line" data-inline="false"></span> <br/> start shopping</button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </div>
+</mat-drawer-container>
