@@ -18,3 +18,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .float-left {
     float: left;
 }
+
+.custom-snackbar-1 {
+    background-color: #C5D2EC;
+}
+
+.snackbar-icon {
+    height: 25px;
+    width: 25px;
+    vertical-align: bottom;
+}
+
+.coveringBodyDiv {
+    height: 100%; 
+    width: 100%; 
+    z-index: 1000; 
+    background-color: #407294; 
+    position: absolute; 
+    opacity: 0.8;
+}
