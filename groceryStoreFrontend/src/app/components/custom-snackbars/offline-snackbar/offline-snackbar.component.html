@@ -1,0 +1,20 @@
+<span>
+    <div style="font-size: 135%;">
+        <span class="iconify snackbar-icon" data-icon="fa-regular:sad-tear" data-inline="false"></span> Oops!
+    </div>
+    Grocery Store Server is not responding
+    <br />
+    <span id="offlineSnackbarCloseBtn">
+
+    </span>
+    &nbsp;
+    <button mat-raised-button color="primary" (click)="startTimer()" [disabled]="isTryingToReconnect">Connect</button>
+    <br />
+    <br />
+    <div *ngIf="isTryingToReconnect" style="text-align: center;">
+        Attempting to reconnect..
+        <mat-spinner color="primary" diameter="40"></mat-spinner>
+        {{time}} seconds passed <br />
+        {{tries}} unsuccessful tries
+    </div>
+</span>
