@@ -3,18 +3,32 @@
         <span class="iconify snackbar-icon" data-icon="fa-regular:sad-tear" data-inline="false"></span> Oops!
     </div>
     Grocery Store Server is not responding
-    <br />
-    <span id="offlineSnackbarCloseBtn">
-
-    </span>
-    &nbsp;
-    <button mat-raised-button color="primary" (click)="startTimer()" [disabled]="isTryingToReconnect">Connect</button>
-    <br />
-    <br />
-    <div *ngIf="isTryingToReconnect" style="text-align: center;">
+    <div *ngIf="!isConnectionEstablished" class="button-group">
+        <!-- Space for Snackbar Close btn -->
+        <span class="offlineSnackbarCloseBtn"></span>
+        &nbsp;
+        <button mat-raised-button color="primary" (click)="startTimer()"
+            [disabled]="isTryingToReconnect">Connect</button>
+    </div>
+    <div *ngIf="isTryingToReconnect" style="text-align: center; margin-top: 5%;">
         Attempting to reconnect..
         <mat-spinner color="primary" diameter="40"></mat-spinner>
-        {{time}} seconds passed <br />
+        {{time}} seconds passed
+        <br />
         {{tries}} unsuccessful tries
+    </div>
+    <div *ngIf="isConnectionEstablished" style="text-align: center; margin-top: 5%;">
+        <hr />
+        <span class="iconify success-icon" data-icon="clarity:success-standard-solid" data-inline="false"></span>
+        <br />
+        <h3 class="m-0 p-0">Connection established</h3>
+        <br />
+        {{time}} seconds passed
+        <br />
+        {{tries}} unsuccessful tries
+        <br />
+        <br />
+        <!-- Space for Snackbar Close btn -->
+        <span class="offlineSnackbarCloseBtn"></span>
     </div>
 </span>

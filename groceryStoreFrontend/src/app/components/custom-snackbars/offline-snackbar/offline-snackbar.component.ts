@@ -12,10 +12,11 @@ export class OfflineSnackbarComponent implements OnDestroy {
   timeInterval;
   triesInterval;
   isTryingToReconnect = false;
+  isConnectionEstablished = false;
   tries: number;
 
   constructor(private connectionService: ConnectionService, private commonMethodsHandler: CommonMethodsHandler) {}
-  
+
   ngOnDestroy(): void {
     this.pauseTimer();
     this.commonMethodsHandler.hideOfflineServerLayer();
@@ -46,6 +47,8 @@ export class OfflineSnackbarComponent implements OnDestroy {
   tryToConnectToApi() : void {
     this.connectionService.pingApi().subscribe(() => {
       this.pauseTimer();
+      this.isTryingToReconnect = false;
+      this.isConnectionEstablished = true;
     },
     () => this.tries++);
   }

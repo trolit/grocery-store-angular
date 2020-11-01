@@ -11,8 +11,8 @@ import {
   providedIn: 'root',
 })
 export class SnackBarHandler {
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  private horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  private verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(private _snackBar: MatSnackBar) {}
 
@@ -33,10 +33,17 @@ export class SnackBarHandler {
       verticalPosition: this.verticalPosition,
       panelClass: ['custom-snackbar-1'],
     });
-    this.createDismissButton(snackBarRef, 'offlineSnackbarCloseBtn');
+    this.attachDismissButtons(snackBarRef, 'offlineSnackbarCloseBtn');
   }
 
-  createDismissButton<T>(snackbarRef: MatSnackBarRef<T>, id: string): void {
+  attachDismissButtons<T>(snackbarRef: MatSnackBarRef<T>, className: string): void {
+    const places = document.getElementsByClassName(className);
+    for(let i = 0; i < places.length; i++) {
+      places[i].appendChild(this.createDismissBtn(snackbarRef));
+    }
+  }
+
+  private createDismissBtn<T>(snackbarRef: MatSnackBarRef<T>) : HTMLButtonElement {
     const btn = document.createElement('button');
     btn.setAttribute('class', 'mat-focus-indicator mat-raised-button mat-button-base mat-basic');
     btn.setAttribute('color', 'basic');
@@ -45,6 +52,6 @@ export class SnackBarHandler {
     btn.onclick = function () {
       snackbarRef.dismiss();
     };
-    document.getElementById(id).appendChild(btn);
+    return btn;
   }
 }
