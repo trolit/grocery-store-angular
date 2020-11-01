@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-products',
@@ -21,5 +21,4 @@ export class ProductsComponent implements OnInit {
       this.products = res;
     });
   }
-
 }
