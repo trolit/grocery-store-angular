@@ -17,14 +17,16 @@
                                     data-inline="false"></span>
                             </h1>
                         </div>
-                        <mat-card class="subtitle">
-                            Everything your <strong class="roboto-font">home</strong> needs
-                            <span class="iconify subtitle-icon" data-icon="heroicons-outline:emoji-happy"
-                                data-inline="false"></span>
-                        </mat-card>
+                        <div>
+                            <mat-card class="subtitle">
+                                Everything your <strong class="roboto-font">home</strong> needs
+                                <span class="iconify subtitle-icon" data-icon="heroicons-outline:emoji-happy"
+                                    data-inline="false"></span>
+                            </mat-card>
+                        </div>
                         <br />
-                        <button mat-raised-button color="primary" (click)="drawer.toggle()"
-                            style="width: 250px; height: 100px;">
+                        <button *ngIf="!isShoppingBtnClicked" [@dismiss]="state" mat-raised-button color="primary"
+                            (click)="drawer.toggle(); triggerAnimation()" style="width: 250px; height: 100px;">
                             <span class="iconify shopping-icon" data-icon="clarity:cursor-hand-click-line"
                                 data-inline="false"></span>
                             <br />
