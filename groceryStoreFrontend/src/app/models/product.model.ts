@@ -1,4 +1,4 @@
-export interface Product {
+export interface Product extends ProductTotalPrice {
     id: number;
     name: string;
     price: number;
@@ -9,4 +9,8 @@ export interface Product {
     previousPrice: number;
     percentagePriceDiff: number;
     priceStatus: string;
+}
+
+export interface ProductTotalPrice {
+    totalPrice: string;
 }
