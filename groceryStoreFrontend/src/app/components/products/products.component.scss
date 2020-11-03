@@ -10,10 +10,16 @@
 }
 
 .product-icon {
-    height: 35px;
-    width: 35px;
+    height: 30px;
+    width: 30px;
     margin-left: 17%;
-    margin-top: 5%;
+    float: right;
+}
+
+.tip-icon {
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
 }
 
 .cart-icon {
@@ -57,4 +63,29 @@
 
 .decorated-price {
     font-size: 110%;
+}
+
+.card-footer {
+    margin: 0; 
+    padding: 0; 
+    position: absolute; 
+    bottom: 10px; 
+    right: 10px; 
+    justify-content: right; 
+    float: right; 
+    display: flex;
+}
+
+.card-footer-tip {
+    position: absolute; 
+    bottom: 55px; 
+    left: 25%;
+    font-size: 60%; 
+    color: grey;
+}
+
+.horizontal-line {
+    width: 100%; 
+    border: 1px solid gray; 
+    opacity: 0.5;
 }

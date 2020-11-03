@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSliderChange } from '@angular/material/slider';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product/product.service';
 
@@ -23,7 +24,7 @@ export class ProductsComponent implements OnInit {
     this.defineColsNumber(currentWidth);
   }
 
-  getProducts(): void {
+  private getProducts(): void {
     this.productService.getProducts().subscribe((res) => {
       this.products = res;
       console.log(this.products);
@@ -42,5 +43,9 @@ export class ProductsComponent implements OnInit {
     } else {
       this.cols = 5;
     }
+  }
+
+  onSliderInputChange(event: MatSliderChange, product: Product) : void {
+    product.totalPrice = (product.price * event.value).toFixed(2);
   }
 }

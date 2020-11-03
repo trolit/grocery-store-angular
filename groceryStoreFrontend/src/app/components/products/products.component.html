@@ -9,23 +9,24 @@
                     <div mat-card-avatar>
                         <span class="iconify product-icon" data-icon="dashicons:products" data-inline="false"></span>
                     </div>
-                    <mat-card-title>{{product.name}}</mat-card-title>
-                    <mat-card-subtitle>
+                    <mat-card-title style="font-size: 0.70rem;">{{product.name}}</mat-card-title>
+                    <mat-card-subtitle style="font-size: 0.75rem;">
                         {{product.category}}
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
                     <div class="text-center">
-                        <div style="width: 100%; border: 1px solid gray; opacity: 0.5"></div>
+                        <div class="horizontal-line"></div>
                         <br />
-                        <span *ngIf="product.priceStatus == 'discount'" class="label warning">-{{product.percentagePriceDiff}}% off</span>
+                        <span *ngIf="product.priceStatus == 'discount'"
+                            class="label warning">-{{product.percentagePriceDiff}}% off</span>
                         &nbsp;
                         <span class="label info">{{product.stock}} left</span>
                     </div>
                     <br />
-                    <div class="text-center">
+                    <div class="text-center" style="position: absolute; left: 40%; top: 48%;">
                         <!-- Normal -->
-                        <div  *ngIf="product.priceStatus != 'discount'">
+                        <div *ngIf="product.priceStatus != 'discount'">
                             <span class="decorated-price">$ {{product.price}}</span> / {{product.measurement}}
                         </div>
                         <!-- Discount -->
@@ -33,12 +34,27 @@
                             <del class="decorated-old-price">$ {{product.previousPrice}}</del> <br />
                             <span class="decorated-promotion">$ {{product.price}} / {{product.measurement}}</span>
                         </div>
+                        <!-- Total price -->
+                        <div *ngIf="product.totalPrice > product.price">
+                            $ {{product.totalPrice}} total
+                        </div>
                     </div>
                 </mat-card-content>
-                <mat-card-actions style="justify-content: right; float: right; display: flex;">
-                    <button mat-button>
-                        <span class="iconify cart-icon" data-icon="ri:shopping-cart-line" data-inline="false"></span>
-                    </button>
+                <mat-card-actions>
+                    <div class="card-footer-tip">
+                        <span><span class="iconify tip-icon"
+                                data-icon="grommet-icons:tooltip" data-inline="false"></span> &nbsp; Use slider to add
+                            more than 1 {{product.measurement}}</span>
+                    </div>
+                    <div class="card-footer">
+                        <mat-slider color="accent" [max]="product.stock" min="1" step="1" thumbLabel="true"
+                            showTicks="true" (input)="onSliderInputChange($event, product)"></mat-slider>
+
+                        <button mat-button>
+                            <span class="iconify cart-icon" data-icon="ri:shopping-cart-line"
+                                data-inline="false"></span>
+                        </button>
+                    </div>
                 </mat-card-actions>
             </mat-card>
         </mat-grid-tile>
