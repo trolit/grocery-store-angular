@@ -1,1 +1,46 @@
-<p>products works!</p>
+<div class="home-products">
+    <mat-grid-list class="md-grid-list" [cols]="cols" (window:resize)="onScreenResize($event)" rowHeight="400px">
+        <mat-grid-tile *ngFor="let product of products">
+            <mat-card class="product-card">
+                <span class="badge" style="float: right;">
+                    #{{product.id}}
+                </span>
+                <mat-card-header>
+                    <div mat-card-avatar>
+                        <span class="iconify product-icon" data-icon="dashicons:products" data-inline="false"></span>
+                    </div>
+                    <mat-card-title>{{product.name}}</mat-card-title>
+                    <mat-card-subtitle>
+                        {{product.category}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="text-center">
+                        <div style="width: 100%; border: 1px solid gray; opacity: 0.5"></div>
+                        <br />
+                        <span *ngIf="product.priceStatus == 'discount'" class="label warning">-{{product.percentagePriceDiff}}% off</span>
+                        &nbsp;
+                        <span class="label info">{{product.stock}} left</span>
+                    </div>
+                    <br />
+                    <div class="text-center">
+                        <!-- Normal -->
+                        <div  *ngIf="product.priceStatus != 'discount'">
+                            <span class="decorated-price">$ {{product.price}}</span> / {{product.measurement}}
+                        </div>
+                        <!-- Discount -->
+                        <div *ngIf="product.priceStatus == 'discount'">
+                            <del class="decorated-old-price">$ {{product.previousPrice}}</del> <br />
+                            <span class="decorated-promotion">$ {{product.price}} / {{product.measurement}}</span>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions style="justify-content: right; float: right; display: flex;">
+                    <button mat-button>
+                        <span class="iconify cart-icon" data-icon="ri:shopping-cart-line" data-inline="false"></span>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
