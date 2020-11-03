@@ -31,16 +31,16 @@ export class ProductsComponent implements OnInit {
   }
 
   private defineColsNumber(currentWidth: number): void {
-    if (currentWidth <= 800) {
+    if (currentWidth <= 1030) {
       this.cols = 1;
-    } else if (currentWidth > 800) {
+    } else if (currentWidth > 1030 && currentWidth < 1400) {
+      this.cols = 2;
+    } else if (currentWidth >= 1400 && currentWidth < 1800) {
       this.cols = 3;
-    } else if (currentWidth >= 1200) {
-      this.cols = 4;
     } else if (currentWidth >= 1800) {
-      this.cols = 5;
+      this.cols = 4;
     } else {
-      this.cols = 6;
+      this.cols = 5;
     }
   }
 }
