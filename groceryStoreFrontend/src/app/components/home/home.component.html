@@ -26,7 +26,7 @@
                         </div>
                         <br />
                         <button *ngIf="!isShoppingBtnClicked" [@dismiss]="state" mat-raised-button color="primary"
-                            (click)="drawer.toggle(); triggerAnimation()" style="width: 250px; height: 100px;">
+                            (click)="drawer.toggle(); triggerAnimation(); scrollToProducts()" style="width: 250px; height: 100px;">
                             <span class="iconify shopping-icon" data-icon="clarity:cursor-hand-click-line"
                                 data-inline="false"></span>
                             <br />
@@ -36,6 +36,6 @@
                 </mat-grid-tile>
             </mat-grid-list>
         </div>
-        <app-products></app-products>
+        <app-products [areProductsVisible]="areProductsVisible"></app-products>
     </div>
 </mat-drawer-container>

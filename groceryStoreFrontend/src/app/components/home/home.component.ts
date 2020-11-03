@@ -22,6 +22,7 @@ export class HomeComponent {
   title = 'groceryStoreFrontend';
   isShoppingBtnClicked = false;
   state = "closed";
+  areProductsVisible: boolean;
 
   triggerAnimation() : void {
     this.state = "open";
@@ -31,6 +32,14 @@ export class HomeComponent {
   hideStartShoppingBtn() : void {
     setTimeout(() => {
       this.isShoppingBtnClicked = true;
+    }, 500);
+  }
+
+  scrollToProducts(): void {
+    this.areProductsVisible = true;
+    setTimeout(() => {
+      const element = document.querySelector("#products")
+      if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 500);
   }
 }

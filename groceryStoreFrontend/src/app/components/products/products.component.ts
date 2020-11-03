@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -9,9 +9,10 @@ import { ProductService } from 'src/app/services/product/product.service';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-  products: Product[];
-  cols: number;
-
+  private products: Product[];
+  private cols: number;
+  @Input() areProductsVisible: boolean;
+  
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
@@ -19,7 +20,7 @@ export class ProductsComponent implements OnInit {
     this.defineColsNumber(window.innerWidth);
   }
 
-  onScreenResize(event: UIEvent): void {
+  private onScreenResize(event: UIEvent): void {
     const currentWidth = (event.target as Window).innerWidth;
     this.defineColsNumber(currentWidth);
   }
@@ -45,7 +46,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  onSliderInputChange(event: MatSliderChange, product: Product) : void {
+  private onSliderInputChange(event: MatSliderChange, product: Product) : void {
     product.totalPrice = (product.price * event.value).toFixed(2);
   }
 }

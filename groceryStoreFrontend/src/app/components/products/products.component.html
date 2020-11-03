@@ -1,4 +1,4 @@
-<div class="home-products">
+<div *ngIf="areProductsVisible" id="products" class="home-products">
     <mat-grid-list class="md-grid-list" [cols]="cols" (window:resize)="onScreenResize($event)" rowHeight="400px">
         <mat-grid-tile *ngFor="let product of products">
             <mat-card class="product-card">
@@ -41,19 +41,21 @@
                     </div>
                 </mat-card-content>
                 <mat-card-actions>
-                    <div class="card-footer-tip">
-                        <span><span class="iconify tip-icon"
-                                data-icon="grommet-icons:tooltip" data-inline="false"></span> &nbsp; Use slider to add
-                            more than 1 {{product.measurement}}</span>
-                    </div>
-                    <div class="card-footer">
-                        <mat-slider color="accent" [max]="product.stock" min="1" step="1" thumbLabel="true"
-                            showTicks="true" (input)="onSliderInputChange($event, product)"></mat-slider>
-
-                        <button mat-button>
-                            <span class="iconify cart-icon" data-icon="ri:shopping-cart-line"
-                                data-inline="false"></span>
-                        </button>
+                    <div *ngIf="product.stock > 0">
+                        <div class="card-footer-tip">
+                            <span><span class="iconify tip-icon"
+                                    data-icon="grommet-icons:tooltip" data-inline="false"></span> &nbsp; Use slider to add
+                                more than 1 {{product.measurement}}</span>
+                        </div>
+                        <div class="card-footer">
+                            <mat-slider color="accent" [max]="product.stock" min="1" step="1" thumbLabel="true"
+                                showTicks="true" (input)="onSliderInputChange($event, product)"></mat-slider>
+    
+                            <button mat-button>
+                                <span class="iconify cart-icon" data-icon="ri:shopping-cart-line"
+                                    data-inline="false"></span>
+                            </button>
+                        </div>
                     </div>
                 </mat-card-actions>
             </mat-card>
