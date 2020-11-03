@@ -22,6 +22,17 @@
     vertical-align: middle;
 }
 
+.owl-icon {
+    height: 25px;
+    width: 25px;
+}
+
+.outOfStockText {
+    color: gray;
+    font-size: 80%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .cart-icon {
     height: 24px;
     width: 24px;
@@ -76,12 +87,18 @@
     display: flex;
 }
 
-.card-footer-tip {
+.card-footer-order {
     position: absolute; 
     bottom: 55px; 
     left: 25%;
-    font-size: 60%; 
+    font-size: 60%;
     color: grey;
+}
+
+.card-footer-outOfStock {
+    position: absolute; 
+    bottom: 10%;
+    left: 40%;
 }
 
 .horizontal-line {

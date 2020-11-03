@@ -24,7 +24,7 @@
                         <span class="label info">{{product.stock}} left</span>
                     </div>
                     <br />
-                    <div class="text-center" style="position: absolute; left: 40%; top: 48%;">
+                    <div class="text-center">
                         <!-- Normal -->
                         <div *ngIf="product.priceStatus != 'discount'">
                             <span class="decorated-price">$ {{product.price}}</span> / {{product.measurement}}
@@ -42,19 +42,28 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <div *ngIf="product.stock > 0">
-                        <div class="card-footer-tip">
-                            <span><span class="iconify tip-icon"
-                                    data-icon="grommet-icons:tooltip" data-inline="false"></span> &nbsp; Use slider to add
+                        <div class="card-footer-order">
+                            <span><span class="iconify tip-icon" data-icon="grommet-icons:tooltip"
+                                    data-inline="false"></span> &nbsp; Use slider to add
                                 more than 1 {{product.measurement}}</span>
                         </div>
                         <div class="card-footer">
                             <mat-slider color="accent" [max]="product.stock" min="1" step="1" thumbLabel="true"
                                 showTicks="true" (input)="onSliderInputChange($event, product)"></mat-slider>
-    
+
                             <button mat-button>
                                 <span class="iconify cart-icon" data-icon="ri:shopping-cart-line"
                                     data-inline="false"></span>
                             </button>
+                        </div>
+                    </div>
+                    <div *ngIf="product.stock == 0" style="margin-top: 12%;">
+                        <div class="text-center card-footer-outOfStock">
+                            <span>
+                                <span class="iconify owl-icon" data-icon="emojione:owl" data-inline="false"></span> 
+                                <br/>
+                                <span class="outOfStockText">out of stock</span>
+                            </span>
                         </div>
                     </div>
                 </mat-card-actions>
