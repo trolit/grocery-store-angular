@@ -1,57 +1,66 @@
 import { Component, OnDestroy } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { CommonMethodsHandler } from 'src/app/handlers/commonMethodsHandler';
 import { ConnectionService } from 'src/app/services/connection/connection.service';
 
 @Component({
   selector: 'app-offline-snackbar',
   templateUrl: './offline-snackbar.component.html',
-  styleUrls: ['./offline-snackbar.component.scss']
+  styleUrls: ['./offline-snackbar.component.scss'],
 })
 export class OfflineSnackbarComponent implements OnDestroy {
   time: number;
-  timeInterval;
-  triesInterval;
+  timeInterval = interval(1000);
+  timeSubscription: Subscription;
+  triesInterval = interval(5000);
+  triesSubscription: Subscription;
   isTryingToReconnect = false;
   isConnectionEstablished = false;
   tries: number;
 
-  constructor(private connectionService: ConnectionService, private commonMethodsHandler: CommonMethodsHandler) {}
+  constructor(
+    private connectionService: ConnectionService,
+    private commonMethodsHandler: CommonMethodsHandler,
+  ) {}
 
   ngOnDestroy(): void {
-    this.pauseTimer();
+    this.unsubscribeIntervals();
     this.commonMethodsHandler.hideOfflineServerLayer();
   }
 
-  startTimer() : void {
+  startTimer(): void {
     this.isTryingToReconnect = true;
     this.time = 1;
     this.tries = 0;
     this.tryToConnectToApi();
-    this.timeInterval = setInterval(() => {
-      this.time++;
-    }, 1000);
-    this.startTriesCounter();
+    this.subscribeIntervals();
   }
 
-  startTriesCounter() : void {
-    this.triesInterval = setInterval(() => {
+  private subscribeIntervals(): void {
+    this.timeSubscription = this.timeInterval.subscribe(() => {
+      this.time += 1;
+    });
+
+    this.triesSubscription = this.triesInterval.subscribe(() => {
       this.tryToConnectToApi();
-    }, 5000);
+    });
   }
 
-  pauseTimer() : void {
-    clearInterval(this.timeInterval);
-    clearInterval(this.triesInterval);
+  private unsubscribeIntervals(): void {
+    this.timeSubscription.unsubscribe();
+    this.triesSubscription.unsubscribe();
   }
 
-  tryToConnectToApi() : void {
-    this.connectionService.pingApi().subscribe(() => {
-      this.pauseTimer();
-      this.isTryingToReconnect = false;
-      this.isConnectionEstablished = true;
-    },
-    () => this.tries++);
+  private tryToConnectToApi(): void {
+    this.connectionService.pingApi().subscribe(
+      () => {
+        this.unsubscribeIntervals();
+        this.isTryingToReconnect = false;
+        this.isConnectionEstablished = true;
+      },
+      () => {
+        this.tries += 1;
+      },
+    );
   }
-
-  
 }
