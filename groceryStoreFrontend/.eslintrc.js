@@ -17,8 +17,10 @@ module.exports = {
         'plugin:prettier/recommended'
       ],
       rules: {
-        // apply custom rules here
-      }
+        "import/prefer-default-export": "off",
+        "@typescript-eslint/lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+        "@typescript-eslint/no-explicit-any": "error"
+      },
     },
     {
       files: ["*.component.html"],
