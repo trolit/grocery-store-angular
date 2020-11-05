@@ -9,17 +9,19 @@ import { SnackBarHandler } from './snackbarHandler';
   providedIn: 'root',
 })
 export class ErrorHandler {
+  isCheckingApi = false;
+  isConnectionLost = false;
+
   constructor(
     private connectionService: ConnectionService,
     private snackBarHandler: SnackBarHandler,
     private commonMethodsHander: CommonMethodsHandler,
   ) {}
-  isCheckingApi = false;
-  isConnectionLost = false;
 
   handleError<T>(operation = 'operation', result?: T) {
     return (error: Error): Observable<T> => {
-      this.isApiOnline();
+      // this.isApiOnline();
+      // eslint-disable-next-line no-console
       console.log(`${operation} failed: ${error.message}`);
       return of(result);
     };
@@ -29,8 +31,7 @@ export class ErrorHandler {
     if (!this.isCheckingApi) {
       this.isCheckingApi = true;
       this.connectionService.pingApi().subscribe(
-        (res) => {
-          console.log(res.status);
+        () => {
           this.isCheckingApi = false;
         },
         () => {

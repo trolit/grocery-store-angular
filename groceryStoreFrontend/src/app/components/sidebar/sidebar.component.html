@@ -1,35 +1,55 @@
-<hr class="m-0" style="border: 1px solid #9FC693;"/>
+<hr class="m-0" style="border: 1px solid #9FC693;" />
 <div class="text-center" style="margin-top: 10%; width: 100%;">
-    <a href="http://localhost:8080/swagger-ui/" target="_blank"> 
-        <span class="iconify swagger-icon" data-icon="file-icons:swagger" data-inline="false"></span></a> <br/>
-    <span class="font-trebuchet">grocery store panel</span>
+  <a href="http://localhost:8080/swagger-ui/" target="_blank">
+    <span class="iconify swagger-icon" data-icon="file-icons:swagger" data-inline="false"></span></a> <br />
+  <span class="font-trebuchet">grocery store panel</span>
 </div>
-<br/>
-<hr class="m-0" style="border: 1px solid #9FC693;"/>
+<br />
+<hr class="m-0" style="border: 1px solid #9FC693;" />
 <div style="margin-left: 5%; font-family: Verdana, Geneva, Tahoma, sans-serif;">
-    <div class="filtering-section">
-        Filter
-        <br/>
-        <mat-form-field class="example-form-field" color="accent">
-            <mat-label>by product name</mat-label>
-            <input id="productNameInput" matInput type="text" (input)="onInputChange($event.target.value)">
-            <button mat-button *ngIf="productNameInput" matSuffix mat-icon-button (click)="clearInput('productNameInput')">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-        <br/>
-        <mat-form-field appearance="fill" color="accent">
-            <mat-label>by category</mat-label>
-            <mat-select [(value)]="productCategorySelect">
-              <mat-option>none</mat-option>
-              <mat-option value="option1">Option 1</mat-option>
-              <mat-option value="option2">Option 2</mat-option>
-              <mat-option value="option3">Option 3</mat-option>
-            </mat-select>
+  <div class="toolbar-section text-center">
+    <mat-accordion class="mat-accordion-styles" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #738762;">
+          <mat-panel-title>
+            <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Products filtering
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="example-form-field" color="accent" style="width: 90%; margin-top: 5%;">
+          <mat-label>by product name</mat-label>
+          <input id="productNameInput" matInput type="text" (input)="onInputChange($event.target.value)">
+          <button mat-button *ngIf="productNameInput" matSuffix mat-icon-button
+            (click)="clearInput('productNameInput')">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
-        <br/>
-        <mat-checkbox labelPosition="before">Is available</mat-checkbox>
-        <br/>
-        <mat-checkbox labelPosition="before">Is on discount</mat-checkbox>
-    </div>
+        <br />
+        <mat-form-field appearance="fill" color="accent">
+          <mat-label>by category</mat-label>
+          <mat-select [(value)]="productCategorySelect">
+            <mat-option>none</mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
+        <mat-checkbox labelPosition="before">is available</mat-checkbox>
+        <br />
+        <mat-checkbox labelPosition="before">is on discount</mat-checkbox>
+        <br />
+        <br />
+        <mat-form-field appearance="fill" color="accent">
+          <mat-label>by measurement</mat-label>
+          <mat-select [(value)]="measurementSelect">
+            <mat-option>none</mat-option>
+            <mat-option value="option1">Option 1</mat-option>
+            <mat-option value="option2">Option 2</mat-option>
+            <mat-option value="option3">Option 3</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
+  </div>
 </div>
