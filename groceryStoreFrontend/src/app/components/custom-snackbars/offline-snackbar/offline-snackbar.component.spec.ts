@@ -8,9 +8,8 @@ describe('OfflineSnackbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OfflineSnackbarComponent ]
-    })
-    .compileComponents();
+      declarations: [OfflineSnackbarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
