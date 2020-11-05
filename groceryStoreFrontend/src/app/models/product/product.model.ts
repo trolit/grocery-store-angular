@@ -1,8 +1,7 @@
+import { BaseModel } from '../base.model';
 import { ProductTotalPrice } from './productTotalPrice.modal';
 
-export interface Product extends ProductTotalPrice {
-  id: number;
-  name: string;
+export interface Product extends BaseModel, ProductTotalPrice {
   price: number;
   stock: number;
   category: string;
