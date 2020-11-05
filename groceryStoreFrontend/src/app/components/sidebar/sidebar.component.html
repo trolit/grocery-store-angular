@@ -12,7 +12,8 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header style="background-color: #738762;">
           <mat-panel-title>
-            <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Products filtering
+            <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Products
+            filtering
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -42,9 +43,8 @@
           <mat-label>by measurement</mat-label>
           <mat-select [(value)]="measurementSelect">
             <mat-option>none</mat-option>
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2">Option 2</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
+            <mat-option *ngFor="let productMeasurement of productMeasurements" [value]="productMeasurement.measurement">
+              {{productMeasurement.measurement}}</mat-option>
           </mat-select>
         </mat-form-field>
 
