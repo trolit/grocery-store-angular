@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Product } from 'src/app/models/product.model';
+import { Product } from 'src/app/models/product/product.model';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandler } from 'src/app/handlers/errorHandler';
 
@@ -10,12 +10,11 @@ import { ErrorHandler } from 'src/app/handlers/errorHandler';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient, private errorHandler : ErrorHandler) {}
+  constructor(private http: HttpClient, private errorHandler: ErrorHandler) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products`)
-      .pipe(
-        catchError(this.errorHandler.handleError<Product[]>('getProducts', []))
-      );
+    return this.http
+      .get<Product[]>(`${environment.apiUrl}/products`)
+      .pipe(catchError(this.errorHandler.handleError<Product[]>('getProducts', [])));
   }
 }

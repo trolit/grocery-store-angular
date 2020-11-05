@@ -15,23 +15,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatChipsModule } from '@angular/material/chips'; 
-import { MatCheckboxModule } from '@angular/material/checkbox'; 
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { ProductsComponent } from './components/products/products.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { OfflineSnackbarComponent } from './components/custom-snackbars/offline-snackbar/offline-snackbar.component';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    ProductsComponent,
-    SidebarComponent,
-    OfflineSnackbarComponent
-  ],
+  declarations: [HomeComponent, ProductsComponent, SidebarComponent, OfflineSnackbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -51,9 +46,9 @@ import { OfflineSnackbarComponent } from './components/custom-snackbars/offline-
     MatSliderModule,
     MatSnackBarModule,
     MatChipsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+  bootstrap: [HomeComponent],
 })
-export class AppModule { }
+export class AppModule {}

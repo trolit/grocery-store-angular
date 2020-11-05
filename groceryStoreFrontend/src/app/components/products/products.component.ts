@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
-import { Product } from 'src/app/models/product.model';
+import { Product } from 'src/app/models/product/product.model';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -11,8 +11,10 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class ProductsComponent implements OnInit {
   private products: Product[];
   private cols: number;
+  private totalPrice: number;
+
   @Input() areProductsVisible: boolean;
-  
+
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
@@ -20,7 +22,7 @@ export class ProductsComponent implements OnInit {
     this.defineColsNumber(window.innerWidth);
   }
 
-  private onScreenResize(event: UIEvent): void {
+  onScreenResize(event: UIEvent): void {
     const currentWidth = (event.target as Window).innerWidth;
     this.defineColsNumber(currentWidth);
   }
@@ -28,7 +30,6 @@ export class ProductsComponent implements OnInit {
   private getProducts(): void {
     this.productService.getProducts().subscribe((res) => {
       this.products = res;
-      console.log(this.products);
     });
   }
 
@@ -46,7 +47,9 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  private onSliderInputChange(event: MatSliderChange, product: Product) : void {
-    product.totalPrice = (product.price * event.value).toFixed(2);
+  onSliderInputChange(event: MatSliderChange, product: Product): void {
+    this.totalPrice = product.price * event.value;
+    // eslint-disable-next-line no-param-reassign
+    product.totalPrice = this.totalPrice.toFixed(2);
   }
 }

@@ -10,8 +10,7 @@ import { environment } from 'src/environments/environment';
 export class ConnectionService {
   constructor(private http: HttpClient) {}
 
-  pingApi() : Observable<StatusResponse> {
-    return this.http
-      .get(`${environment.apiUrl}/online`, { observe: 'response' });
+  pingApi(): Observable<StatusResponse> {
+    return this.http.get(`${environment.apiUrl}/online`, { observe: 'response' });
   }
 }
