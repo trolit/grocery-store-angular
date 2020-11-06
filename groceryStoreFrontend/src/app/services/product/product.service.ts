@@ -19,6 +19,12 @@ export class ProductService {
       .pipe(catchError(this.errorHandler.handleError<Product[]>('getProducts', [])));
   }
 
+  getFilteredProducts(query: string): Observable<Product[]> {
+    return this.http
+      .get<Product[]>(`${environment.apiUrl}/products/${query}`)
+      .pipe(catchError(this.errorHandler.handleError<Product[]>('getFilteredProducts', [])));
+  }
+
   getAllMeasurements(): Observable<ProductMeasurement[]> {
     return this.http
       .get<ProductMeasurement[]>(`${environment.apiUrl}/products/measurements`)
