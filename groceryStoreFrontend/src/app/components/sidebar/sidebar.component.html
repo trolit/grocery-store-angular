@@ -19,30 +19,38 @@
 
         <mat-form-field class="example-form-field" color="accent" style="width: 90%; margin-top: 5%;">
           <mat-label>by product name</mat-label>
-          <input id="productNameInput" matInput type="text" (input)="onInputChange($event.target.value)">
-          <button mat-button *ngIf="productNameInput" matSuffix mat-icon-button
+          <input id="productNameInput" matInput type="text" (keyup)="onProductNameInputKeyUp()"
+            (input)="onInputChange($event.target.value)">
+          <button mat-button *ngIf="productNameInput && !isTyping" matSuffix mat-icon-button
             (click)="clearInput('productNameInput')">
             <mat-icon>close</mat-icon>
           </button>
+          <div *ngIf="isTyping" matSuffix>
+            <mat-spinner diameter="20" color="accent"></mat-spinner>
+          </div>
         </mat-form-field>
         <br />
         <mat-form-field appearance="fill" color="accent">
           <mat-label>by category</mat-label>
-          <mat-select [(value)]="productCategorySelect">
-            <mat-option>none</mat-option>
+          <mat-select [(value)]="selectedCategoryId"
+            (selectionChange)="assignCategoryIdOnSelectionChange($event.value)">
+            <mat-option value="0">none</mat-option>
             <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
           </mat-select>
         </mat-form-field>
         <br />
-        <mat-checkbox labelPosition="before">is available</mat-checkbox>
+        <mat-checkbox labelPosition="before" (click)="assignValueOnCheckboxInteraction('isAvailable')">is available
+        </mat-checkbox>
         <br />
-        <mat-checkbox labelPosition="before">is on discount</mat-checkbox>
+        <mat-checkbox labelPosition="before" (click)="assignValueOnCheckboxInteraction('isOnDiscount')">is on discount
+        </mat-checkbox>
         <br />
         <br />
         <mat-form-field appearance="fill" color="accent">
           <mat-label>by measurement</mat-label>
-          <mat-select [(value)]="measurementSelect">
-            <mat-option>none</mat-option>
+          <mat-select [(value)]="selectedMeasurement"
+            (selectionChange)="assignMeasurementOnSelectionChange($event.value)">
+            <mat-option value="0">none</mat-option>
             <mat-option *ngFor="let productMeasurement of productMeasurements" [value]="productMeasurement.measurement">
               {{productMeasurement.measurement}}</mat-option>
           </mat-select>
