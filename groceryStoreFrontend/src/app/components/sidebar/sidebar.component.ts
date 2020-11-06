@@ -125,19 +125,19 @@ export class SidebarComponent implements OnInit {
   }
 
   addBooleanTypeFilter(propertyName: string): void {
-    if (propertyName === 'isAvailable' && this.isAvailable) {
+    if (propertyName === this.queryPartsNames[0] && this.isAvailable) {
       this.addFilterToQuery('stock', '>', '0');
-    } else if (propertyName === 'isOnDiscount' && this.isOnDiscount) {
+    } else if (propertyName === this.queryPartsNames[1] && this.isOnDiscount) {
       this.addFilterToQuery('priceStatus', ':', 'discount');
     }
   }
 
   addStringTypeFilter(propertyName: string): void {
-    if (propertyName === 'productNameInput' && this.productNameInput.length > 0) {
+    if (propertyName === this.queryPartsNames[2] && this.productNameInput.length > 0) {
       this.addFilterToQuery('name', ':', this.productNameInput);
-    } else if (propertyName === 'selectedCategoryId' && this.selectedCategoryId !== '0') {
+    } else if (propertyName === this.queryPartsNames[3] && this.selectedCategoryId !== '0') {
       this.addFilterToQuery('categoryId', ':', this.selectedCategoryId.toString());
-    } else if (propertyName === 'selectedMeasurement' && this.selectedMeasurement !== '0') {
+    } else if (propertyName === this.queryPartsNames[4] && this.selectedMeasurement !== '0') {
       this.addFilterToQuery('measurement', ':', this.selectedMeasurement);
     }
   }
