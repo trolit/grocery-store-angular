@@ -5,6 +5,7 @@ import { Category } from 'src/app/models/category/category.model';
 import { ProductMeasurement } from 'src/app/models/product/productMeasurement.model';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -32,7 +33,11 @@ export class SidebarComponent implements OnInit {
     'selectedMeasurement',
   ];
 
-  constructor(private categoryService: CategoryService, private productService: ProductService) {}
+  constructor(
+    private categoryService: CategoryService,
+    private productService: ProductService,
+    private sharedService: SharedService,
+  ) {}
 
   ngOnInit(): void {
     this.defaultValues();
@@ -98,7 +103,7 @@ export class SidebarComponent implements OnInit {
   }
 
   assignCategoryIdOnSelectionChange(categoryId: string): void {
-    this.selectedCategoryId = categoryId;
+    this.selectedCategoryId = categoryId.toString();
     this.buildQuery();
   }
 
@@ -116,6 +121,7 @@ export class SidebarComponent implements OnInit {
         this.addStringTypeFilter(this.queryPartsNames[i]);
       }
     }
+    this.requestProductsFiltering();
   }
 
   addBooleanTypeFilter(propertyName: string): void {
@@ -129,21 +135,18 @@ export class SidebarComponent implements OnInit {
   addStringTypeFilter(propertyName: string): void {
     if (propertyName === 'productNameInput' && this.productNameInput.length > 0) {
       this.addFilterToQuery('name', ':', this.productNameInput);
-    } else if (
-      propertyName === 'selectedCategoryId' &&
-      this.selectedCategoryId.toString() !== '0'
-    ) {
+    } else if (propertyName === 'selectedCategoryId' && this.selectedCategoryId !== '0') {
       this.addFilterToQuery('categoryId', ':', this.selectedCategoryId.toString());
-    } else if (
-      propertyName === 'selectedMeasurement' &&
-      this.selectedMeasurement.length > 0 &&
-      this.selectedMeasurement !== '0'
-    ) {
+    } else if (propertyName === 'selectedMeasurement' && this.selectedMeasurement !== '0') {
       this.addFilterToQuery('measurement', ':', this.selectedMeasurement);
     }
   }
 
   addFilterToQuery(key: string, operation: string, value: string): void {
     this.query += `${key}${operation}${value},`;
+  }
+
+  requestProductsFiltering(): void {
+    this.sharedService.requestProductsFiltering(this.query);
   }
 }

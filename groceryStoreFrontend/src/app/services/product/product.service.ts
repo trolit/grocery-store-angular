@@ -21,7 +21,7 @@ export class ProductService {
 
   getFilteredProducts(query: string): Observable<Product[]> {
     return this.http
-      .get<Product[]>(`${environment.apiUrl}/products/${query}`)
+      .get<Product[]>(`${environment.apiUrl}/products${query.length > 0 ? `?search=${query}` : ''}`)
       .pipe(catchError(this.errorHandler.handleError<Product[]>('getFilteredProducts', [])));
   }
 
