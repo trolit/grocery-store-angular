@@ -10,11 +10,12 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
+  nonSortedProducts: Product[];
   products: Product[];
+  lastSortKeyword = 'none';
   private cols: number;
   private totalPrice: number;
   wereProductsLoaded = false;
-
   @Input() areProductsVisible: boolean;
 
   constructor(private productService: ProductService, private sharedService: SharedService) {}
@@ -22,7 +23,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
     this.defineColsNumber(window.innerWidth);
-    this.sharedService.onProductsFilteringRequest(this.filterProductsByQuery.bind(this));
+    this.bindMethodsForSharedService();
   }
 
   onScreenResize(event: UIEvent): void {
@@ -30,11 +31,62 @@ export class ProductsComponent implements OnInit {
     this.defineColsNumber(currentWidth);
   }
 
+  private bindMethodsForSharedService(): void {
+    this.sharedService.onProductsFilteringRequest(this.filterProductsByQuery.bind(this));
+    this.sharedService.onSortByCategoryRequest(this.sortProductsByCategory.bind(this));
+    this.sharedService.onSortByPriceRequest(this.sortProductsByPriceAsc.bind(this));
+    this.sharedService.onSortByStockRequest(this.sortProductsByStockDesc.bind(this));
+    this.sharedService.onSortClear(this.clearSort.bind(this));
+  }
+
   private getProducts(): void {
     this.productService.getProducts().subscribe((res) => {
       this.products = res;
+      this.nonSortedProducts = res;
+      console.log('Po wzieciu produktow');
+      console.log(this.nonSortedProducts);
       this.wereProductsLoaded = true;
     });
+  }
+
+  private sortProductsIfLastSortKeywordIsNotNone(): void {
+    switch (this.lastSortKeyword) {
+      case 'stock':
+        this.sortProductsByStockDesc();
+        break;
+      case 'price':
+        this.sortProductsByPriceAsc();
+        break;
+      case 'category':
+        this.sortProductsByCategory();
+        break;
+      default:
+        break;
+    }
+  }
+
+  private sortProductsByCategory(): void {
+    this.products = [...this.products].sort((a, b) => a.category.localeCompare(b.category));
+    this.updateLastSortKeywordVariable('category');
+  }
+
+  private sortProductsByPriceAsc(): void {
+    this.products = [...this.products].sort((a, b) => a.price - b.price);
+    this.updateLastSortKeywordVariable('price');
+  }
+
+  private sortProductsByStockDesc(): void {
+    this.products = [...this.products].sort((a, b) => b.stock - a.stock);
+    this.updateLastSortKeywordVariable('stock');
+  }
+
+  private updateLastSortKeywordVariable(sortKeyword: string): void {
+    this.lastSortKeyword = sortKeyword;
+  }
+
+  private clearSort(): void {
+    this.products = this.nonSortedProducts;
+    this.updateLastSortKeywordVariable('none');
   }
 
   private defineColsNumber(currentWidth: number): void {
@@ -60,6 +112,8 @@ export class ProductsComponent implements OnInit {
   filterProductsByQuery(query: string): void {
     this.productService.getFilteredProducts(query).subscribe((res) => {
       this.products = res;
+      this.nonSortedProducts = res;
+      this.sortProductsIfLastSortKeywordIsNotNone();
     });
   }
 }

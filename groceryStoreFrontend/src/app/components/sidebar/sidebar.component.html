@@ -6,10 +6,10 @@
 </div>
 <br />
 <hr class="m-0" style="border: 1px solid #9FC693;" />
-<div style="margin-left: 5%; font-family: Verdana, Geneva, Tahoma, sans-serif;">
-  <div class="toolbar-section text-center">
-    <mat-accordion class="mat-accordion-styles" multi>
-      <mat-expansion-panel>
+<div style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+  <div class="text-center">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header style="background-color: #738762;">
           <mat-panel-title>
             <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Products
@@ -55,9 +55,20 @@
               {{productMeasurement.measurement}}</mat-option>
           </mat-select>
         </mat-form-field>
-
       </mat-expansion-panel>
     </mat-accordion>
     <br />
   </div>
+</div>
+<div class="text-center">
+  <mat-form-field class="mat-field-style" appearance="fill" color="accent">
+    <mat-label>sort products by</mat-label>
+    <mat-select
+      (selectionChange)="onSortSelectionPick($event.value)">
+      <mat-option value="none">none</mat-option>
+      <mat-option value="category">category</mat-option>
+      <mat-option value="stock">stock</mat-option>
+      <mat-option value="price">price (asc)</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>

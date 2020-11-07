@@ -14,7 +14,7 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class SidebarComponent implements OnInit {
   productNameInput = '';
-  selectedCategoryId = '0';
+  selectedCategoryId = 0;
   selectedMeasurement = '0';
   categories: Category[];
   productMeasurements: ProductMeasurement[];
@@ -102,8 +102,8 @@ export class SidebarComponent implements OnInit {
     this.buildQuery();
   }
 
-  assignCategoryIdOnSelectionChange(categoryId: string): void {
-    this.selectedCategoryId = categoryId.toString();
+  assignCategoryIdOnSelectionChange(categoryId: number): void {
+    this.selectedCategoryId = categoryId;
     this.buildQuery();
   }
 
@@ -135,7 +135,7 @@ export class SidebarComponent implements OnInit {
   addStringTypeFilter(propertyName: string): void {
     if (propertyName === this.queryPartsNames[2] && this.productNameInput.length > 0) {
       this.addFilterToQuery('name', ':', this.productNameInput);
-    } else if (propertyName === this.queryPartsNames[3] && this.selectedCategoryId !== '0') {
+    } else if (propertyName === this.queryPartsNames[3] && this.selectedCategoryId > 0) {
       this.addFilterToQuery('categoryId', ':', this.selectedCategoryId.toString());
     } else if (propertyName === this.queryPartsNames[4] && this.selectedMeasurement !== '0') {
       this.addFilterToQuery('measurement', ':', this.selectedMeasurement);
@@ -148,5 +148,9 @@ export class SidebarComponent implements OnInit {
 
   requestProductsFiltering(): void {
     this.sharedService.requestProductsFiltering(this.query);
+  }
+
+  onSortSelectionPick(property: string): void {
+    this.sharedService.requestProductsSorting(property);
   }
 }
