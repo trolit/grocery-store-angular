@@ -43,8 +43,6 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe((res) => {
       this.products = res;
       this.nonSortedProducts = res;
-      console.log('Po wzieciu produktow');
-      console.log(this.nonSortedProducts);
       this.wereProductsLoaded = true;
     });
   }
