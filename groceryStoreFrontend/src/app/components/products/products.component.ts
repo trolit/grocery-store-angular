@@ -10,9 +10,10 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-  private products: Product[];
+  products: Product[];
   private cols: number;
   private totalPrice: number;
+  wereProductsLoaded = false;
 
   @Input() areProductsVisible: boolean;
 
@@ -32,6 +33,7 @@ export class ProductsComponent implements OnInit {
   private getProducts(): void {
     this.productService.getProducts().subscribe((res) => {
       this.products = res;
+      this.wereProductsLoaded = true;
     });
   }
 

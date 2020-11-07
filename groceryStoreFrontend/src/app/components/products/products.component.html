@@ -1,4 +1,8 @@
-<div *ngIf="areProductsVisible" id="products" class="home-products">
+<div *ngIf="!products && wereProductsLoaded" class="text-center" style="position: absolute; top: 70%; left: 37%;">
+    <span class="iconify owl-icon-2" data-icon="emojione:owl" data-inline="false"></span><br/>
+    <span class="roboto-font noProductsFound-text">0 products found matching the filters</span>
+</div>
+<div *ngIf="areProductsVisible && products" id="products" class="home-products">
     <mat-grid-list class="md-grid-list" [cols]="cols" (window:resize)="onScreenResize($event)" rowHeight="400px">
         <mat-grid-tile *ngFor="let product of products">
             <mat-card class="product-card">
