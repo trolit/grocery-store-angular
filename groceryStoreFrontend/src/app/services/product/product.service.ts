@@ -6,6 +6,7 @@ import { Product } from 'src/app/models/product/product.model';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandler } from 'src/app/handlers/errorHandler';
 import { ProductMeasurement } from 'src/app/models/product/productMeasurement.model';
+import { ProductPrice } from 'src/app/models/product/productPrice.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,17 @@ export class ProductService {
     return this.http
       .get<ProductMeasurement[]>(`${environment.apiUrl}/products/measurements`)
       .pipe(catchError(this.errorHandler.handleError<ProductMeasurement[]>('getMeasurements', [])));
+  }
+  changeProductPriceByPercentage(
+    id: number,
+    productPrice: ProductPrice,
+  ): Observable<StatusResponse> {
+    return this.http.patch<StatusResponse>(
+      `${environment.apiUrl}/products/${id}/price`,
+      productPrice,
+      {
+        observe: 'response',
+      },
+    );
   }
 }

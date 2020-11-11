@@ -1,0 +1,16 @@
+<div mat-dialog-content>
+  <h3>Price Update</h3>
+  <mat-form-field class="w-100" color="accent">
+    <mat-label>Target (product id)</mat-label>
+    <input id="productId" matInput maxlength="5">
+  </mat-form-field>
+  <mat-form-field class="w-100" color="accent">
+    <mat-label>Percentage</mat-label>
+    <input id="percentage" matInput maxlength="5">
+    <mat-hint align="start"><strong>e.g. 150 is 50% rise while 80 is 20% discount</strong> </mat-hint>
+  </mat-form-field>
+</div>
+<div class="dialog-actions" mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button cdkFocusInitial (click)="wrapDataAndCreateProduct()">Execute</button>
+</div>
