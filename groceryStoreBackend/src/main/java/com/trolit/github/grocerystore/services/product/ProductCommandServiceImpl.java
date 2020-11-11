@@ -108,18 +108,19 @@ public class ProductCommandServiceImpl implements ProductCommandService {
     }
 
     @Override
-    public int changeProductPriceByPercentage(int id, ProductPriceChangeDto productPriceChangeDto) {
+    public UpdatedProductPriceDto changeProductPriceByPercentage(int id, ProductPriceChangeDto productPriceChangeDto) {
         if (isProductPresent(id)) {
+            BigDecimal currentPrice = getCurrentPrice(id);
             Product product = getProductById(id);
             BigDecimal newPrice = product.getPrice()
                     .multiply(new BigDecimal(productPriceChangeDto.getPercentage()))
                     .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-            product.setPreviousPrice(getCurrentPrice(id));
+            product.setPreviousPrice(currentPrice);
             product.setPrice(newPrice);
             productRepository.save(product);
-            return 1;
+            return new UpdatedProductPriceDto(newPrice, currentPrice);
         } else {
-            return 0;
+            return new UpdatedProductPriceDto();
         }
     }
 
