@@ -14,21 +14,21 @@ export class SnackBarHandler {
   private horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   private verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar) {}
 
-  openSnackBar(): void {
-    const snackBarRef = this._snackBar.open('Cannonball!!', 'End now', {
+  openSnackBarWithMessage(message: string): void {
+    const snackBarRef = this.snackBar.open(message, 'Close', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       panelClass: ['custom-snackbar-1'],
     });
     snackBarRef.onAction().subscribe(() => {
-      console.log('The snackbar action was triggered!');
+      snackBarRef.dismiss();
     });
   }
 
   createSnackbarFromComponent<T>(data: ComponentType<T>): void {
-    const snackBarRef = this._snackBar.openFromComponent(data, {
+    const snackBarRef = this.snackBar.openFromComponent(data, {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       panelClass: ['custom-snackbar-1'],
