@@ -18,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -49,6 +50,7 @@ import { OfflineSnackbarComponent } from './components/custom-snackbars/offline-
     MatChipsModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [HomeComponent],
