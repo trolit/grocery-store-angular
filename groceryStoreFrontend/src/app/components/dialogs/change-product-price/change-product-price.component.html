@@ -1,7 +1,7 @@
 <div mat-dialog-content>
-  <h3>Price Update</h3>
+  <h3><span class="iconify" data-icon="icomoon-free:price-tag" data-inline="true"></span> Price update</h3>
   <mat-form-field class="w-100" color="accent">
-    <mat-label>Target (product id)</mat-label>
+    <mat-label>Product id (number after # sign)</mat-label>
     <input id="productId" matInput maxlength="5">
   </mat-form-field>
   <mat-form-field class="w-100" color="accent">
@@ -12,5 +12,5 @@
 </div>
 <div class="dialog-actions" mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button cdkFocusInitial (click)="wrapDataAndCreateProduct()">Execute</button>
+  <button mat-button cdkFocusInitial (click)="wrapDataAndRequestPriceChange()">Execute</button>
 </div>

@@ -26,9 +26,16 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductsComponent } from './components/products/products.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { OfflineSnackbarComponent } from './components/custom-snackbars/offline-snackbar/offline-snackbar.component';
+import { ChangeProductPriceComponent } from './components/dialogs/change-product-price/change-product-price.component';
 
 @NgModule({
-  declarations: [HomeComponent, ProductsComponent, SidebarComponent, OfflineSnackbarComponent],
+  declarations: [
+    HomeComponent,
+    ProductsComponent,
+    SidebarComponent,
+    OfflineSnackbarComponent,
+    ChangeProductPriceComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -50,7 +57,7 @@ import { OfflineSnackbarComponent } from './components/custom-snackbars/offline-
     MatChipsModule,
     MatCheckboxModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [HomeComponent],
