@@ -1,3 +1,7 @@
 export interface ProductPrice {
-  percentage: number;
+  id: number;
+  price: number;
+  previousPrice: number;
+  percentagePriceDiff: number;
+  priceStatus: string;
 }
