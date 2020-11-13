@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SnackBarHandler } from 'src/app/handlers/snackbarHandler';
+import { Product } from 'src/app/models/product/product.model';
 import { ProductPercentage } from 'src/app/models/product/productPercentage.model';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -11,10 +12,14 @@ import { BaseDialog } from '../base-dialog';
   templateUrl: './change-product-price.component.html',
   styleUrls: ['../base-dialog-styles.scss'],
 })
-export class ChangeProductPriceComponent extends BaseDialog<ChangeProductPriceComponent> {
+export class ChangeProductPriceComponent
+  extends BaseDialog<ChangeProductPriceComponent>
+  implements OnInit {
   productServiceRef: ProductService;
   snackbarHandlerRef: SnackBarHandler;
   sharedServiceRef: SharedService;
+  products: Product[];
+  productIdInput: HTMLInputElement;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeProductPriceComponent>,
@@ -26,6 +31,11 @@ export class ChangeProductPriceComponent extends BaseDialog<ChangeProductPriceCo
     this.productServiceRef = productService;
     this.snackbarHandlerRef = snackbarHander;
     this.sharedServiceRef = sharedService;
+  }
+
+  ngOnInit() {
+    this.productIdInput = document.getElementById('productId') as HTMLInputElement;
+    this.products = this.sharedServiceRef.requestProducts();
   }
 
   requestPriceChange(id: number, productPercentage: ProductPercentage): void {
@@ -49,7 +59,6 @@ export class ChangeProductPriceComponent extends BaseDialog<ChangeProductPriceCo
   }
 
   wrapDataAndRequestPriceChange(): void {
-    const productIdInput = document.getElementById('productId') as HTMLInputElement;
     const percentageInput = document.getElementById('percentage') as HTMLInputElement;
     const percentageInputValue = Number(percentageInput.value);
     if (percentageInputValue < 0) {
@@ -58,6 +67,10 @@ export class ChangeProductPriceComponent extends BaseDialog<ChangeProductPriceCo
     const productDto: ProductPercentage = {
       percentage: percentageInputValue,
     };
-    this.requestPriceChange(Number(productIdInput.value), productDto);
+    this.requestPriceChange(Number(this.productIdInput.value), productDto);
+  }
+
+  onProductSelectSupplyProductIdInput(id: number): void {
+    this.productIdInput.value = id.toString();
   }
 }

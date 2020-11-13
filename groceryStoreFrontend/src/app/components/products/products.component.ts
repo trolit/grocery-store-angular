@@ -40,6 +40,7 @@ export class ProductsComponent implements OnInit {
     this.sharedService.onSortByStockRequest(this.sortProductsByStockDesc.bind(this));
     this.sharedService.onSortClear(this.clearSort.bind(this));
     this.sharedService.onProductPriceOverrideRequest(this.overrideProductPrice.bind(this));
+    this.sharedService.onReturnProductsRequest(this.returnProducts.bind(this));
   }
 
   private getProducts(): void {
@@ -48,6 +49,10 @@ export class ProductsComponent implements OnInit {
       this.nonSortedProducts = res;
       this.wereProductsLoaded = true;
     });
+  }
+
+  returnProducts(): Product[] {
+    return this.products;
   }
 
   private sortProductsIfLastSortKeywordIsNotNone(): void {

@@ -6,3 +6,7 @@ mat-form-field {
     margin-top: 6%;
     float: right;
 }
+
+::ng-deep .mat-select {
+    font-size: 0.70rem !important;
+}

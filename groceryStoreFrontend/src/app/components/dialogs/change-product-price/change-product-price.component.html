@@ -1,11 +1,20 @@
 <div mat-dialog-content>
   <h3><span class="iconify" data-icon="icomoon-free:price-tag" data-inline="true"></span> Price update</h3>
-  <mat-form-field class="w-100" color="accent">
-    <mat-label>Product id (number after # sign)</mat-label>
+  <mat-form-field color="accent">
+    <mat-label><span class="iconify" data-icon="zmdi:collection-item" data-inline="true"></span> type id</mat-label>
     <input id="productId" matInput maxlength="5">
   </mat-form-field>
+  <span class="w-100 text-center" style="color: gray; margin: 0 3% 0 3%;">or</span>
+  <mat-form-field color="accent">
+    <mat-label><span class="iconify" data-icon="zmdi:collection-item" data-inline="true"></span> pick from list
+    </mat-label>
+    <mat-select>
+      <mat-option *ngFor="let product of products" [value]="product.id"
+        (click)="onProductSelectSupplyProductIdInput(product.id)">{{product.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-form-field class="w-100" color="accent">
-    <mat-label>Percentage</mat-label>
+    <mat-label><span class="iconify" data-icon="zmdi:collection-item" data-inline="true"></span> Percentage</mat-label>
     <input id="percentage" matInput maxlength="5">
     <mat-hint align="start"><strong>e.g. 150 is 50% rise while 80 is 20% discount</strong> </mat-hint>
   </mat-form-field>
