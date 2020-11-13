@@ -6,6 +6,9 @@ import { Product } from 'src/app/models/product/product.model';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandler } from 'src/app/handlers/errorHandler';
 import { ProductMeasurement } from 'src/app/models/product/productMeasurement.model';
+import { StatusResponse } from 'src/app/models/statusResponse.model';
+import { ProductCreate } from 'src/app/models/product/productCreate.model';
+import { ProductPercentage } from 'src/app/models/product/productPercentage.model';
 import { ProductPrice } from 'src/app/models/product/productPrice.model';
 
 @Injectable({
@@ -31,16 +34,26 @@ export class ProductService {
       .get<ProductMeasurement[]>(`${environment.apiUrl}/products/measurements`)
       .pipe(catchError(this.errorHandler.handleError<ProductMeasurement[]>('getMeasurements', [])));
   }
+
+  deleteProduct(id: number): Observable<StatusResponse> {
+    return this.http
+      .delete(`${environment.apiUrl}/products/${id}`, { observe: 'response' })
+      .pipe(catchError(this.errorHandler.handleError<StatusResponse>('deleteProduct')));
+  }
+
+  createProduct(productToAdd: ProductCreate): Observable<number> {
+    return this.http
+      .post<number>(`${environment.apiUrl}/products`, productToAdd)
+      .pipe(catchError(this.errorHandler.handleError<number>('createProduct')));
+  }
+
   changeProductPriceByPercentage(
     id: number,
-    productPrice: ProductPrice,
-  ): Observable<StatusResponse> {
-    return this.http.patch<StatusResponse>(
+    productPercentage: ProductPercentage,
+  ): Observable<ProductPrice> {
+    return this.http.patch<ProductPrice>(
       `${environment.apiUrl}/products/${id}/price`,
-      productPrice,
-      {
-        observe: 'response',
-      },
+      productPercentage,
     );
   }
 }

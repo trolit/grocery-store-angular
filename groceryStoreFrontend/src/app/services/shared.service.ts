@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ProductPrice } from '../models/product/productPrice.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ export class SharedService {
   private sortProductsByStockDescRef: () => void;
   private sortProductsByPriceAscRef: () => void;
   private clearSortRef: () => void;
+  private overrideProductPriceRef: (productPrice: ProductPrice) => void;
 
   onProductsFilteringRequest(filterProductsByQuery: () => void) {
     this.filterProductsByQueryRef = filterProductsByQuery;
@@ -28,6 +30,14 @@ export class SharedService {
 
   onSortClear(clearSort: () => void) {
     this.clearSortRef = clearSort;
+  }
+
+  onProductPriceOverrideRequest(overrideProductPrice: () => void) {
+    this.overrideProductPriceRef = overrideProductPrice;
+  }
+
+  requestProductPriceOverride(productPrice: ProductPrice) {
+    this.overrideProductPriceRef(productPrice);
   }
 
   requestProductsFiltering(query: string) {
