@@ -1,6 +1,8 @@
+/* eslint-disable no-param-reassign */
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { Product } from 'src/app/models/product/product.model';
+import { ProductPrice } from 'src/app/models/product/productPrice.model';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -37,6 +39,7 @@ export class ProductsComponent implements OnInit {
     this.sharedService.onSortByPriceRequest(this.sortProductsByPriceAsc.bind(this));
     this.sharedService.onSortByStockRequest(this.sortProductsByStockDesc.bind(this));
     this.sharedService.onSortClear(this.clearSort.bind(this));
+    this.sharedService.onProductPriceOverrideRequest(this.overrideProductPrice.bind(this));
   }
 
   private getProducts(): void {
@@ -103,7 +106,6 @@ export class ProductsComponent implements OnInit {
 
   onSliderInputChange(event: MatSliderChange, product: Product): void {
     this.totalPrice = product.price * event.value;
-    // eslint-disable-next-line no-param-reassign
     product.totalPrice = this.totalPrice.toFixed(2);
   }
 
@@ -112,6 +114,22 @@ export class ProductsComponent implements OnInit {
       this.products = res;
       this.nonSortedProducts = res;
       this.sortProductsIfLastSortKeywordIsNotNone();
+    });
+  }
+
+  overrideProductPrice(productPrice: ProductPrice): void {
+    this.overrideProductPriceInArray(this.products, productPrice);
+    this.overrideProductPriceInArray(this.nonSortedProducts, productPrice);
+  }
+
+  overrideProductPriceInArray(array: Product[], productPrice: ProductPrice): void {
+    array.forEach((elem) => {
+      if (elem.id === productPrice.id) {
+        elem.price = productPrice.price;
+        elem.previousPrice = productPrice.previousPrice;
+        elem.percentagePriceDiff = productPrice.percentagePriceDiff;
+        elem.priceStatus = productPrice.priceStatus;
+      }
     });
   }
 }
