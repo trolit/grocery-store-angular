@@ -118,7 +118,9 @@ public class ProductCommandServiceImpl implements ProductCommandService {
             product.setPreviousPrice(currentPrice);
             product.setPrice(newPrice);
             productRepository.save(product);
-            return new UpdatedProductPriceDto(newPrice, currentPrice);
+            return new UpdatedProductPriceDto(id, newPrice, currentPrice,
+                    returnPercentageDiffBetweenPrices(newPrice, currentPrice),
+                    getPriceStatus(newPrice, currentPrice));
         } else {
             return new UpdatedProductPriceDto();
         }
