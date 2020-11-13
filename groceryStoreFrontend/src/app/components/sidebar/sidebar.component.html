@@ -9,11 +9,10 @@
 <div style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
   <div class="text-center">
     <mat-accordion>
-      <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel>
         <mat-expansion-panel-header style="background-color: #738762;">
           <mat-panel-title>
-            <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Products
-            filtering
+            <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Filtering
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -55,6 +54,15 @@
               {{productMeasurement.measurement}}</mat-option>
           </mat-select>
         </mat-form-field>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #738762;">
+          <mat-panel-title>
+            <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Actions
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <br/>
+        <button class="btn-metallic" mat-raised-button (click)="toggleProductPriceChangeDialog()">Change price by %</button>
       </mat-expansion-panel>
     </mat-accordion>
     <br />

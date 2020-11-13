@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { DialogHandler } from 'src/app/handlers/dialogHandler';
 import { Category } from 'src/app/models/category/category.model';
 import { ProductMeasurement } from 'src/app/models/product/productMeasurement.model';
 import { CategoryService } from 'src/app/services/category/category.service';
@@ -37,6 +38,7 @@ export class SidebarComponent implements OnInit {
     private categoryService: CategoryService,
     private productService: ProductService,
     private sharedService: SharedService,
+    private dialogHandler: DialogHandler,
   ) {}
 
   ngOnInit(): void {
@@ -152,5 +154,9 @@ export class SidebarComponent implements OnInit {
 
   onSortSelectionPick(property: string): void {
     this.sharedService.requestProductsSorting(property);
+  }
+
+  toggleProductPriceChangeDialog(): void {
+    this.dialogHandler.toggleProductPriceChangeDialog();
   }
 }
