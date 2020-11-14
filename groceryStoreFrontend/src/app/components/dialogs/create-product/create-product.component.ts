@@ -38,9 +38,7 @@ export class CreateProductComponent extends BaseDialog<CreateProductComponent> i
   private requestProductCreate(product: ProductCreate): void {
     this.productService.createProduct(product).subscribe(
       (productId) => {
-        this.snackbarHandler.openSnackBarWithMessage(
-          `Product #${productId} created :)`,
-        );
+        this.snackbarHandler.openSnackBarWithMessage(`Product #${productId} created :)`);
         this.productService.getProduct(productId).subscribe((productFromDb) => {
           this.sharedService.requestProductAdd(productFromDb);
         });
