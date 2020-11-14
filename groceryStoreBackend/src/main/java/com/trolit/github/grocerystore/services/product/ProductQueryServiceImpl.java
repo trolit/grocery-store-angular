@@ -37,8 +37,13 @@ public class ProductQueryServiceImpl implements ProductQueryService {
         if(productRepository.findById(id).isPresent()) {
             Product product = productRepository.findById(id).get();
             ProductQueryDto productQueryDto = modelMapper.map(product, ProductQueryDto.class);
+            BigDecimal previousProductPrice = product.getPreviousPrice();
             productQueryDto.setPercentagePriceDiff(
-                    returnPercentageDiffBetweenPrices(product.getPrice(), product.getPreviousPrice()));
+                    returnPercentageDiffBetweenPrices(
+                            product.getPrice(),
+                            previousProductPrice == null ? BigDecimal.ZERO : previousProductPrice
+                    )
+            );
             productQueryDto.setPriceStatus(getPriceStatus(product.getPrice(), product.getPreviousPrice()));
             return productQueryDto;
         } else {
