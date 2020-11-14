@@ -64,9 +64,9 @@
         <br />
         <button class="btn-metallic" mat-raised-button (click)="toggleProductPriceChangeDialog()">Change price by
           %</button>
-        <br /> <br/>
+        <br /> <br />
         <button class="btn-metallic" mat-raised-button (click)="toggleProductCreateDialog()">Add product</button>
-        <br /> <br/>
+        <br /> <br />
         <button class="btn-metallic" mat-raised-button (click)="toggleProductDeleteDialog()">Delete product</button>
       </mat-expansion-panel>
     </mat-accordion>
@@ -83,4 +83,8 @@
       <mat-option value="price">price (asc)</mat-option>
     </mat-select>
   </mat-form-field>
+  <br />
+  <button mat-flat-button style="background-color: #708E9B;"><span class="iconify"
+      style="height: 30px; width: 30px; padding: 6px" data-icon="ph:shopping-cart-simple-light"
+      data-inline="false"></span> {{shoppingCartCurrentSize}}</button>
 </div>

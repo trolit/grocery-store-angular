@@ -25,6 +25,7 @@ export class SidebarComponent implements OnInit {
   isTypingTimerInvoked = false;
   productNameInputOnKeyUp = '';
   filteringQuery: string;
+  shoppingCartCurrentSize = 0;
   query = '';
   queryPartsNames = [
     'isAvailable',
