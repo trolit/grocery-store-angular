@@ -16,11 +16,11 @@ export class SnackBarHandler {
 
   constructor(private snackBar: MatSnackBar) {}
 
-  openSnackBarWithMessage(message: string): void {
+  openSnackBarWithMessage(message: string, color = 'custom-snackbar-1'): void {
     const snackBarRef = this.snackBar.open(message, 'Close', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      panelClass: ['custom-snackbar-1'],
+      panelClass: [color],
     });
     snackBarRef.onAction().subscribe(() => {
       snackBarRef.dismiss();
@@ -38,12 +38,12 @@ export class SnackBarHandler {
 
   attachDismissButtons<T>(snackbarRef: MatSnackBarRef<T>, className: string): void {
     const places = document.getElementsByClassName(className);
-    for(let i = 0; i < places.length; i++) {
+    for (let i = 0; i < places.length; i += 1) {
       places[i].appendChild(this.createDismissBtn(snackbarRef));
     }
   }
 
-  private createDismissBtn<T>(snackbarRef: MatSnackBarRef<T>) : HTMLButtonElement {
+  private createDismissBtn<T>(snackbarRef: MatSnackBarRef<T>): HTMLButtonElement {
     const btn = document.createElement('button');
     btn.setAttribute('class', 'mat-focus-indicator mat-raised-button mat-button-base mat-basic');
     btn.setAttribute('color', 'basic');

@@ -23,6 +23,10 @@ export class ProductService {
       .pipe(catchError(this.errorHandler.handleError<Product[]>('getProducts', [])));
   }
 
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${environment.apiUrl}/products/${id}`);
+  }
+
   getFilteredProducts(query: string): Observable<Product[]> {
     return this.http
       .get<Product[]>(`${environment.apiUrl}/products${query.length > 0 ? `?search=${query}` : ''}`)
@@ -41,10 +45,8 @@ export class ProductService {
       .pipe(catchError(this.errorHandler.handleError<StatusResponse>('deleteProduct')));
   }
 
-  createProduct(productToAdd: ProductCreate): Observable<number> {
-    return this.http
-      .post<number>(`${environment.apiUrl}/products`, productToAdd)
-      .pipe(catchError(this.errorHandler.handleError<number>('createProduct')));
+  createProduct(product: ProductCreate): Observable<number> {
+    return this.http.post<number>(`${environment.apiUrl}/products`, product);
   }
 
   changeProductPriceByPercentage(

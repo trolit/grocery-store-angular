@@ -1,7 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SnackBarHandler } from 'src/app/handlers/snackbarHandler';
-import { Product } from 'src/app/models/product/product.model';
 import { ProductPercentage } from 'src/app/models/product/productPercentage.model';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -15,44 +14,37 @@ import { BaseDialog } from '../base-dialog';
 export class ChangeProductPriceComponent
   extends BaseDialog<ChangeProductPriceComponent>
   implements OnInit {
-  productServiceRef: ProductService;
-  snackbarHandlerRef: SnackBarHandler;
-  sharedServiceRef: SharedService;
-  products: Product[];
   productIdInput: HTMLInputElement;
 
   constructor(
-    public dialogRef: MatDialogRef<ChangeProductPriceComponent>,
-    productService: ProductService,
-    snackbarHander: SnackBarHandler,
-    sharedService: SharedService,
+    protected dialogRef: MatDialogRef<ChangeProductPriceComponent>,
+    protected productService: ProductService,
+    protected snackbarHandler: SnackBarHandler,
+    protected sharedService: SharedService,
   ) {
-    super(dialogRef);
-    this.productServiceRef = productService;
-    this.snackbarHandlerRef = snackbarHander;
-    this.sharedServiceRef = sharedService;
+    super(dialogRef, sharedService);
   }
 
   ngOnInit() {
     this.productIdInput = document.getElementById('productId') as HTMLInputElement;
-    this.products = this.sharedServiceRef.requestProducts();
   }
 
   requestPriceChange(id: number, productPercentage: ProductPercentage): void {
-    this.productServiceRef.changeProductPriceByPercentage(id, productPercentage).subscribe(
+    this.productService.changeProductPriceByPercentage(id, productPercentage).subscribe(
       (res) => {
-        this.snackbarHandlerRef.openSnackBarWithMessage(
+        this.snackbarHandler.openSnackBarWithMessage(
           `Product #${id} price ${
             productPercentage.percentage > 100
               ? `increased by ${productPercentage.percentage - 100}%`
               : `decreased by ${100 - productPercentage.percentage}%`
           }`,
         );
-        this.sharedServiceRef.requestProductPriceOverride(res);
+        this.sharedService.requestProductPriceOverride(res);
       },
       () => {
-        this.snackbarHandlerRef.openSnackBarWithMessage(
+        this.snackbarHandler.openSnackBarWithMessage(
           `Error occured while changing product #${id} price :(`,
+          'custom-snackbar-2',
         );
       },
     );

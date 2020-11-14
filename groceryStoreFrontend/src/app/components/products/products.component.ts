@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
   private totalPrice: number;
   wereProductsLoaded = false;
   @Input() areProductsVisible: boolean;
+  lastFilterQuery: string;
 
   constructor(private productService: ProductService, private sharedService: SharedService) {}
 
@@ -41,6 +42,8 @@ export class ProductsComponent implements OnInit {
     this.sharedService.onSortClear(this.clearSort.bind(this));
     this.sharedService.onProductPriceOverrideRequest(this.overrideProductPrice.bind(this));
     this.sharedService.onReturnProductsRequest(this.returnProducts.bind(this));
+    this.sharedService.onProductRemoveRequest(this.removeProduct.bind(this));
+    this.sharedService.onAddProductRequest(this.addProductAndRearrangeData.bind(this));
   }
 
   private getProducts(): void {
@@ -48,6 +51,7 @@ export class ProductsComponent implements OnInit {
       this.products = res;
       this.nonSortedProducts = res;
       this.wereProductsLoaded = true;
+      this.lastFilterQuery = '';
     });
   }
 
@@ -115,6 +119,7 @@ export class ProductsComponent implements OnInit {
   }
 
   filterProductsByQuery(query: string): void {
+    this.lastFilterQuery = query;
     this.productService.getFilteredProducts(query).subscribe((res) => {
       this.products = res;
       this.nonSortedProducts = res;
@@ -136,5 +141,28 @@ export class ProductsComponent implements OnInit {
         elem.priceStatus = productPrice.priceStatus;
       }
     });
+  }
+
+  removeProduct(id: number) {
+    this.removeProductFromArray(this.products, id);
+    this.removeProductFromArray(this.nonSortedProducts, id);
+  }
+
+  addProductAndRearrangeData(product: Product) {
+    this.products.push(product);
+    this.nonSortedProducts.push(product);
+    if (this.lastFilterQuery !== '') {
+      this.filterProductsByQuery(this.lastFilterQuery);
+    } else {
+      this.sortProductsIfLastSortKeywordIsNotNone();
+    }
+  }
+
+  removeProductFromArray(array: Product[], id: number): void {
+    for (let i = 0; i < array.length; i += 1) {
+      if (array[i].id === id) {
+        array.splice(i, 1);
+      }
+    }
   }
 }

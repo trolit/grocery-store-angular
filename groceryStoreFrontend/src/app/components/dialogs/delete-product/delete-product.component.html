@@ -1,0 +1,19 @@
+<div mat-dialog-content>
+  <h3 class="mb-0"><span class="iconify" data-icon="vscode-icons:folder-type-binary"
+      data-inline="true"></span> Product delete</h3>
+  <small class="m-0" style="color: gray;"><span class="iconify" data-icon="ant-design:warning-outlined"
+      data-inline="true"></span> Products filtering affects list</small>
+  <br /><br />
+  <mat-form-field class="w-100" appearance="outline" color="accent">
+    <mat-label><span class="iconify" data-icon="mdi:select-search" data-inline="true"></span> pick product from list
+    </mat-label>
+    <mat-select>
+      <mat-option *ngFor="let product of products" [value]="product.id" (click)="storeIdonProductSelect(product.id)">
+        {{product.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="dialog-actions" mat-dialog-actions>
+  <button mat-button (click)="dismissDialog()">Close</button>
+  <button mat-button cdkFocusInitial (click)="requestProductDelete(); dismissDialog()">Execute</button>
+</div>

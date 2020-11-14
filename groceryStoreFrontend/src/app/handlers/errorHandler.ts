@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ConnectionService } from 'src/app/services/connection/connection.service';
@@ -21,7 +22,6 @@ export class ErrorHandler {
   handleError<T>(operation = 'operation', result?: T) {
     return (error: Error): Observable<T> => {
       // this.isApiOnline();
-      // eslint-disable-next-line no-console
       console.log(`${operation} failed: ${error.message}`);
       return of(result);
     };

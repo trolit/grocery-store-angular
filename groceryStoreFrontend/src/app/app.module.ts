@@ -27,6 +27,8 @@ import { ProductsComponent } from './components/products/products.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { OfflineSnackbarComponent } from './components/custom-snackbars/offline-snackbar/offline-snackbar.component';
 import { ChangeProductPriceComponent } from './components/dialogs/change-product-price/change-product-price.component';
+import { CreateProductComponent } from './components/dialogs/create-product/create-product.component';
+import { DeleteProductComponent } from './components/dialogs/delete-product/delete-product.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { ChangeProductPriceComponent } from './components/dialogs/change-product
     SidebarComponent,
     OfflineSnackbarComponent,
     ChangeProductPriceComponent,
+    CreateProductComponent,
+    DeleteProductComponent,
   ],
   imports: [
     BrowserModule,

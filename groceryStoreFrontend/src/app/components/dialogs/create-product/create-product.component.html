@@ -1,0 +1,37 @@
+<div mat-dialog-content class="text-center">
+  <h3><span class="iconify" data-icon="carbon:add-comment" data-inline="true"
+      style="height: 2.81rem; width: 2.81rem;"></span>
+    <br /> Product create</h3>
+  <mat-form-field color="accent">
+    <mat-label><span class="iconify" data-icon="zmdi:collection-item" data-inline="true"></span> name</mat-label>
+    <input id="productName" matInput maxlength="60">
+  </mat-form-field>
+  <br />
+  <mat-form-field color="accent">
+    <mat-label><span class="iconify" data-icon="zmdi:collection-item" data-inline="true"></span> price</mat-label>
+    <input id="productPrice" matInput maxlength="8">
+  </mat-form-field>
+  <br />
+  <mat-form-field color="accent">
+    <mat-label><span class="iconify" data-icon="zmdi:collection-item" data-inline="true"></span> stock</mat-label>
+    <input id="productStock" matInput maxlength="4">
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>measurement</mat-label>
+    <mat-select [(value)]="selectedMeasurement" (selectionChange)="assignMeasurementOnSelectionChange($event.value)">
+      <mat-option *ngFor="let productMeasurement of productMeasurements" [value]="productMeasurement.measurement">
+        {{productMeasurement.measurement}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>category</mat-label>
+    <mat-select [(value)]="selectedCategoryId" (selectionChange)="assignCategoryIdOnSelectionChange($event.value)">
+      <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="dialog-actions" mat-dialog-actions>
+  <button mat-button (click)="dismissDialog()">Close</button>
+  <button mat-button cdkFocusInitial (click)="wrapDataAndRequestProductCreate(); dismissDialog()">Execute</button>
+</div>

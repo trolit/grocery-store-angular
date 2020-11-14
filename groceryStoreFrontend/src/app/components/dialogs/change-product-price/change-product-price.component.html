@@ -1,5 +1,9 @@
 <div mat-dialog-content>
-  <h3><span class="iconify" data-icon="icomoon-free:price-tag" data-inline="true"></span> Price update</h3>
+  <h3 class="mb-0"><span class="iconify" data-icon="icomoon-free:price-tag" data-inline="true"></span>
+    Price update</h3>
+  <small class="m-0" style="color: gray;"><span class="iconify" data-icon="ant-design:warning-outlined"
+      data-inline="true"></span> Products filtering affects list</small>
+  <br />
   <mat-form-field color="accent">
     <mat-label><span class="iconify" data-icon="zmdi:collection-item" data-inline="true"></span> type id</mat-label>
     <input id="productId" matInput maxlength="5">
@@ -20,6 +24,6 @@
   </mat-form-field>
 </div>
 <div class="dialog-actions" mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button cdkFocusInitial (click)="wrapDataAndRequestPriceChange()">Execute</button>
+  <button mat-button (click)="dismissDialog()">Close</button>
+  <button mat-button cdkFocusInitial (click)="wrapDataAndRequestPriceChange(); dismissDialog()">Execute</button>
 </div>

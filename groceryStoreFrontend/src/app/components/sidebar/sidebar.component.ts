@@ -159,4 +159,12 @@ export class SidebarComponent implements OnInit {
   toggleProductPriceChangeDialog(): void {
     this.dialogHandler.toggleProductPriceChangeDialog();
   }
+
+  toggleProductCreateDialog(): void {
+    this.dialogHandler.toggleProductCreateDialog();
+  }
+
+  toggleProductDeleteDialog(): void {
+    this.dialogHandler.toggleProductDeleteDialog();
+  }
 }
