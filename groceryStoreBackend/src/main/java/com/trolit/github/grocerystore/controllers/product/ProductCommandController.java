@@ -30,15 +30,14 @@ public class ProductCommandController {
             @ApiResponse(code = 201, message = "Product resource created"),
             @ApiResponse(code = 400, message = "Product not created (category not found)")})
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<Integer> createProduct(@Valid @RequestBody ProductCreateDto productCreateDto) {
+    public ResponseEntity<ProductCreateDto> createProduct(@Valid @RequestBody ProductCreateDto productCreateDto) {
         int result = productCommandService.createProduct(productCreateDto);
         if (result == 0) {
             return ResponseEntity
                     .badRequest()
                     .build();
         } else {
-            return new ResponseEntity<>(
-                    productCommandService.createProduct(productCreateDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(productCreateDto, HttpStatus.CREATED);
         }
     }
 
