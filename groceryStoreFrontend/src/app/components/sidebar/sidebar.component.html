@@ -1,16 +1,16 @@
-<hr class="m-0" style="border: 1px solid #9FC693;" />
+<hr class="m-0" style="border: 1px solid #708E9B;" />
 <div class="text-center" style="margin-top: 10%; width: 100%;">
   <a href="http://localhost:8080/swagger-ui/" target="_blank">
     <span class="iconify swagger-icon" data-icon="file-icons:swagger" data-inline="false"></span></a> <br />
   <span class="font-trebuchet">grocery store panel</span>
 </div>
 <br />
-<hr class="m-0" style="border: 1px solid #9FC693;" />
+<hr class="m-0" style="border: 1px solid #708E9B;" />
 <div style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
   <div class="text-center">
     <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header style="background-color: #738762;">
+      <mat-expansion-panel class="m-0">
+        <mat-expansion-panel-header style="background-color: #708E9B;">
           <mat-panel-title>
             <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Filtering
           </mat-panel-title>
@@ -29,7 +29,7 @@
           </div>
         </mat-form-field>
         <br />
-        <mat-form-field appearance="fill" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>by category</mat-label>
           <mat-select [(value)]="selectedCategoryId"
             (selectionChange)="assignCategoryIdOnSelectionChange($event.value)">
@@ -45,7 +45,7 @@
         </mat-checkbox>
         <br />
         <br />
-        <mat-form-field appearance="fill" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>by measurement</mat-label>
           <mat-select [(value)]="selectedMeasurement"
             (selectionChange)="assignMeasurementOnSelectionChange($event.value)">
@@ -55,24 +55,28 @@
           </mat-select>
         </mat-form-field>
       </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header style="background-color: #738762;">
+      <mat-expansion-panel [expanded]="true" class="m-0">
+        <mat-expansion-panel-header style="background-color: #708E9B;">
           <mat-panel-title>
             <span class="iconify" data-icon="radix-icons:component-boolean" data-inline="true"></span> &nbsp; Actions
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <br/>
-        <button class="btn-metallic" mat-raised-button (click)="toggleProductPriceChangeDialog()">Change price by %</button>
+        <br />
+        <button class="btn-metallic" mat-raised-button (click)="toggleProductPriceChangeDialog()">Change price by
+          %</button>
+        <br /> <br/>
+        <button class="btn-metallic" mat-raised-button (click)="toggleProductPriceChangeDialog()">Add product</button>
+        <br /> <br/>
+        <button class="btn-metallic" mat-raised-button (click)="toggleProductPriceChangeDialog()">Delete product</button>
       </mat-expansion-panel>
     </mat-accordion>
     <br />
   </div>
 </div>
 <div class="text-center">
-  <mat-form-field class="mat-field-style" appearance="fill" color="accent">
+  <mat-form-field class="mat-field-style" appearance="outline" color="accent">
     <mat-label>sort products by</mat-label>
-    <mat-select
-      (selectionChange)="onSortSelectionPick($event.value)">
+    <mat-select (selectionChange)="onSortSelectionPick($event.value)">
       <mat-option value="none">none</mat-option>
       <mat-option value="category">category</mat-option>
       <mat-option value="stock">stock</mat-option>
