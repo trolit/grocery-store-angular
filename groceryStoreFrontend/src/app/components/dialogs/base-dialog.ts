@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Product } from 'src/app/models/product/product.model';
+import { SharedService } from 'src/app/services/shared.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BaseDialog<T> {
-  constructor(public dialogRef: MatDialogRef<T>) {}
+  public products: Product[];
 
-  onNoClick(): void {
+  constructor(protected dialogRef: MatDialogRef<T>, protected sharedService: SharedService) {
+    this.products = this.sharedService.requestProducts();
+  }
+
+  dismissDialog(): void {
     this.dialogRef.close();
   }
 }
