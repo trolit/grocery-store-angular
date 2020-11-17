@@ -13,6 +13,7 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class ProductsComponent implements OnInit {
   nonSortedProducts: Product[];
+  nonFilteredNorSortedProducts: Product[];
   products: Product[];
   lastSortKeyword = 'none';
   private cols: number;
@@ -41,22 +42,23 @@ export class ProductsComponent implements OnInit {
     this.sharedService.onSortByStockRequest(this.sortProductsByStockDesc.bind(this));
     this.sharedService.onSortClear(this.clearSort.bind(this));
     this.sharedService.onProductPriceOverrideRequest(this.overrideProductPrice.bind(this));
-    this.sharedService.onReturnProductsRequest(this.returnProducts.bind(this));
     this.sharedService.onProductRemoveRequest(this.removeProduct.bind(this));
     this.sharedService.onAddProductRequest(this.addProductAndRearrangeData.bind(this));
+    this.sharedService.onReturnAllProductsRequest(this.returnAllProducts.bind(this));
   }
 
   private getProducts(): void {
     this.productService.getProducts().subscribe((res) => {
       this.products = res;
       this.nonSortedProducts = res;
+      this.nonFilteredNorSortedProducts = res;
       this.wereProductsLoaded = true;
       this.lastFilterQuery = '';
     });
   }
 
-  returnProducts(): Product[] {
-    return this.products;
+  returnAllProducts(): Product[] {
+    return this.nonFilteredNorSortedProducts;
   }
 
   private sortProductsIfLastSortKeywordIsNotNone(): void {
@@ -146,11 +148,13 @@ export class ProductsComponent implements OnInit {
   removeProduct(id: number) {
     this.removeProductFromArray(this.products, id);
     this.removeProductFromArray(this.nonSortedProducts, id);
+    this.removeProductFromArray(this.nonFilteredNorSortedProducts, id);
   }
 
   addProductAndRearrangeData(product: Product) {
     this.products.push(product);
     this.nonSortedProducts.push(product);
+    this.nonFilteredNorSortedProducts.push(product);
     if (this.lastFilterQuery !== '') {
       this.filterProductsByQuery(this.lastFilterQuery);
     } else {

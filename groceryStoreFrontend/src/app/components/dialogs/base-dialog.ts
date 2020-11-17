@@ -8,7 +8,7 @@ export class BaseDialog<T> {
   public products: Product[];
 
   constructor(protected dialogRef: MatDialogRef<T>, protected sharedService: SharedService) {
-    this.products = this.sharedService.requestProducts();
+    this.products = this.sharedService.requestAllProducts();
   }
 
   dismissDialog(): void {

@@ -12,9 +12,9 @@ export class SharedService {
   private sortProductsByPriceAscRef: () => void;
   private clearSortRef: () => void;
   private overrideProductPriceRef: (productPrice: ProductPrice) => void;
-  private returnProductsRef: () => Product[];
   private removeProductRef: (id: number) => void;
   private addProductRef: (product: Product) => void;
+  private returnAllProductsRef: () => Product[];
 
   onProductsFilteringRequest(filterProductsByQuery: () => void) {
     this.filterProductsByQueryRef = filterProductsByQuery;
@@ -40,10 +40,6 @@ export class SharedService {
     this.overrideProductPriceRef = overrideProductPrice;
   }
 
-  onReturnProductsRequest(returnProducts: () => Product[]) {
-    this.returnProductsRef = returnProducts;
-  }
-
   onProductRemoveRequest(removeProduct: () => void) {
     this.removeProductRef = removeProduct;
   }
@@ -54,6 +50,10 @@ export class SharedService {
 
   requestProductAdd(product: Product) {
     this.addProductRef(product);
+  }
+
+  onReturnAllProductsRequest(returnAllProducts: () => Product[]) {
+    this.returnAllProductsRef = returnAllProducts;
   }
 
   requestProductPriceOverride(productPrice: ProductPrice) {
@@ -68,8 +68,8 @@ export class SharedService {
     this.removeProductRef(id);
   }
 
-  requestProducts(): Product[] {
-    return this.returnProductsRef();
+  requestAllProducts(): Product[] {
+    return this.returnAllProductsRef();
   }
 
   requestProductsSorting(field: string) {
