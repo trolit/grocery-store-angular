@@ -73,6 +73,9 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
       }
     }
     product.amount += amount;
+    if (product.amount > product.stock) {
+      product.amount = product.stock;
+    }
     const newTotalPrice = product.price * product.amount;
     product.totalPrice = newTotalPrice.toFixed(2);
     product.amount = Number(product.amount.toFixed(2));
