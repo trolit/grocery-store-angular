@@ -19,6 +19,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +30,7 @@ import { OfflineSnackbarComponent } from './components/custom-snackbars/offline-
 import { ChangeProductPriceComponent } from './components/dialogs/change-product-price/change-product-price.component';
 import { CreateProductComponent } from './components/dialogs/create-product/create-product.component';
 import { DeleteProductComponent } from './components/dialogs/delete-product/delete-product.component';
+import { ShoppingCartComponent } from './components/dialogs/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { DeleteProductComponent } from './components/dialogs/delete-product/dele
     ChangeProductPriceComponent,
     CreateProductComponent,
     DeleteProductComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { DeleteProductComponent } from './components/dialogs/delete-product/dele
     MatCheckboxModule,
     MatExpansionModule,
     MatDialogModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [HomeComponent],
