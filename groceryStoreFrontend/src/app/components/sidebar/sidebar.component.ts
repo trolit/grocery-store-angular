@@ -46,6 +46,7 @@ export class SidebarComponent implements OnInit {
     this.defaultValues();
     this.getCategories();
     this.getMeasurements();
+    this.shoppingCartCurrentSize = Number(sessionStorage.getItem('shoppingCartCounterVal'));
   }
 
   onInputChange(inputValue: string): void {
@@ -167,5 +168,9 @@ export class SidebarComponent implements OnInit {
 
   toggleProductDeleteDialog(): void {
     this.dialogHandler.toggleProductDeleteDialog();
+  }
+
+  toggleShoppingCartDialog(): void {
+    this.dialogHandler.toggleShoppingCartDialog();
   }
 }

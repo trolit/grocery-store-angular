@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
@@ -49,11 +50,18 @@ export class ProductsComponent implements OnInit {
 
   private getProducts(): void {
     this.productService.getProducts().subscribe((res) => {
+      this.setForEachProductTotalPrice(res);
       this.products = res;
       this.nonSortedProducts = res;
       this.nonFilteredNorSortedProducts = res;
       this.wereProductsLoaded = true;
       this.lastFilterQuery = '';
+    });
+  }
+
+  setForEachProductTotalPrice(array: Product[]): void {
+    array.forEach((item) => {
+      item.totalPrice = item.price.toString();
     });
   }
 
@@ -118,6 +126,23 @@ export class ProductsComponent implements OnInit {
   onSliderInputChange(event: MatSliderChange, product: Product): void {
     this.totalPrice = product.price * event.value;
     product.totalPrice = this.totalPrice.toFixed(2);
+  }
+
+  sendProductToCart(productId: number): void {
+    const product = this.findAndReturnProductById(productId);
+    if (product !== null) {
+      const amount = product.price > 0 ? Number(product.totalPrice) / product.price : 0;
+      this.sharedService.requestProductAddToCart(product, amount);
+    }
+  }
+
+  findAndReturnProductById(productId: number): Product {
+    for (let i = 0; i < this.nonFilteredNorSortedProducts.length; i += 1) {
+      if (this.nonFilteredNorSortedProducts[i].id === productId) {
+        return this.nonFilteredNorSortedProducts[i];
+      }
+    }
+    return null;
   }
 
   filterProductsByQuery(query: string): void {

@@ -55,7 +55,7 @@
                             <mat-slider color="accent" [max]="product.stock" min="1" step="1" thumbLabel="true"
                                 showTicks="true" (input)="onSliderInputChange($event, product)"></mat-slider>
 
-                            <button mat-button>
+                            <button mat-button (click)="sendProductToCart(product.id)">
                                 <span class="iconify cart-icon" data-icon="ri:shopping-cart-line"
                                     data-inline="false"></span>
                             </button>

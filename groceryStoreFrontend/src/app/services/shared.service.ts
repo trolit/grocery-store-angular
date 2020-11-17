@@ -15,6 +15,7 @@ export class SharedService {
   private removeProductRef: (id: number) => void;
   private addProductRef: (product: Product) => void;
   private returnAllProductsRef: () => Product[];
+  private addProductToCartRef: (product: Product, amount: number) => void;
 
   onProductsFilteringRequest(filterProductsByQuery: () => void) {
     this.filterProductsByQueryRef = filterProductsByQuery;
@@ -48,8 +49,16 @@ export class SharedService {
     this.addProductRef = addProduct;
   }
 
+  onAddProductToCartRequest(addProductToCart: () => void) {
+    this.addProductToCartRef = addProductToCart;
+  }
+
   requestProductAdd(product: Product) {
     this.addProductRef(product);
+  }
+
+  requestProductAddToCart(product: Product, amount: number) {
+    this.addProductToCartRef(product, amount);
   }
 
   onReturnAllProductsRequest(returnAllProducts: () => Product[]) {

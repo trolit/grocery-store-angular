@@ -1,3 +1,3 @@
 export interface ProductTotalPrice {
-    totalPrice: string;
+  totalPrice: string;
 }
