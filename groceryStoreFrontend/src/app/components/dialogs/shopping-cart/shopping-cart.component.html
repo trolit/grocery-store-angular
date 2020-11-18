@@ -34,6 +34,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </mat-dialog-content>
+    <span style="color: gray; float: right; margin-top: 2%;">$ {{orderPrice}} total</span>
+    <br />
 </div>
 <div *ngIf="dataSource.data.length <= 0" class="text-center">
     <span class="iconify" data-icon="emojione:dog" data-inline="true" style="width: 5rem; height: 5rem;"></span>

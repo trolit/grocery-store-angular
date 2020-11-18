@@ -43,6 +43,15 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
       this.updateProductCartItem(productCartItem, amount);
     }
     this.saveProductInSessionStorage(productCartItem);
+    this.updateOrderPrice();
+  }
+
+  updateOrderPrice(): void {
+    let orderPrice = 0;
+    this.productsInCart.forEach((productInCart) => {
+      orderPrice += Number(productInCart.totalPrice);
+    });
+    this.orderPrice = orderPrice.toFixed(2);
   }
 
   returnProductCartItem(product: Product, amount: number): ProductCartItem {
@@ -89,5 +98,8 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
       }
     });
     sessionStorage.setItem('shoppingCartCounterVal', counter.toString());
+    if (counter > 0) {
+      this.updateOrderPrice();
+    }
   }
 }
