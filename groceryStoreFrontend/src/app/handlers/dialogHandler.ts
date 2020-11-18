@@ -36,4 +36,13 @@ export class DialogHandler {
       width: this.basicWidth,
     });
   }
+
+  initShoppingCartDialog(): void {
+    this.dialog
+      .open(ShoppingCartComponent, {
+        width: this.basicWidth,
+        backdropClass: 'transparent-backdrop',
+      })
+      .close();
+  }
 }

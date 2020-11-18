@@ -50,6 +50,14 @@ export class SidebarComponent implements OnInit {
     this.sharedService.onIncreaseShoppingCartCurrentSizeValueRequest(
       this.increaseShoppingCartCurrentSizeValue.bind(this),
     );
+    this.sharedService.onShoppingCartCurrentSizeValueResetRequest(
+      this.resetShoppingCartCurrentSizeValue.bind(this),
+    );
+    timer(500)
+      .pipe(first())
+      .subscribe(() => {
+        this.dialogHandler.initShoppingCartDialog();
+      });
   }
 
   onInputChange(inputValue: string): void {
