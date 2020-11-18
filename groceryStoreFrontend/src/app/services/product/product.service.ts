@@ -10,6 +10,7 @@ import { StatusResponse } from 'src/app/models/statusResponse.model';
 import { ProductCreate } from 'src/app/models/product/productCreate.model';
 import { ProductPercentage } from 'src/app/models/product/productPercentage.model';
 import { ProductPrice } from 'src/app/models/product/productPrice.model';
+import { ProductOrder } from 'src/app/models/product/productOrder.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,10 @@ export class ProductService {
 
   getProduct(id: number): Observable<Product> {
     return this.http.get<Product>(`${environment.apiUrl}/products/${id}`);
+  }
+
+  placeOrder(order: ProductOrder): Observable<StatusResponse> {
+    return this.http.patch<StatusResponse>(`${environment.apiUrl}/products/order`, order);
   }
 
   getFilteredProducts(query: string): Observable<Product[]> {
