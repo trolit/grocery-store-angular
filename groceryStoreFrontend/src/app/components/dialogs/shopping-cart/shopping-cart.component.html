@@ -45,5 +45,5 @@
 </div>
 <div style="margin-top: 8%;">
     <button mat-button (click)="dismissDialog()" style="float: left;">Close</button>
-    <button *ngIf="dataSource.data.length > 0" mat-button color="accent" style="float: right;">Make order</button>
+    <button *ngIf="dataSource.data.length > 0" mat-button color="accent" style="float: right;" (click)="makeOrder()">Make order</button>
 </div>

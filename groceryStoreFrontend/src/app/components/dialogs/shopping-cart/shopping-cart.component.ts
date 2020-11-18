@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/models/product/product.model';
 import { ProductCartItem } from 'src/app/models/product/productCartItem';
+import { ProductOrder } from 'src/app/models/product/productOrder.model';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { BaseDialog } from '../base-dialog';
@@ -19,6 +20,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
   productsInCart: ProductCartItem[] = [];
   dataSource: MatTableDataSource<ProductCartItem>;
   orderPrice: string;
+  orderBody: Array<string>;
 
   constructor(
     protected dialogRef: MatDialogRef<ShoppingCartComponent>,
@@ -54,6 +56,41 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     this.orderPrice = orderPrice.toFixed(2);
   }
 
+  makeOrder(): void {
+    const order = this.buildOrderBody();
+    this.productService.placeOrder(order).subscribe(
+      () => {
+        console.log('order finished!');
+        this.clearShoppingCartAndSessionStorage();
+      },
+      () => {
+        console.log('error bruh :(');
+      },
+    );
+  }
+
+  buildOrderBody(): ProductOrder {
+    const orderBodyArr: string[] = [];
+    this.productsInCart.forEach((productInCart) => {
+      orderBodyArr.push(productInCart.id.toString());
+      orderBodyArr.push(productInCart.amount.toString());
+    });
+    const order: ProductOrder = {
+      order: orderBodyArr,
+    };
+    return order;
+  }
+
+  clearShoppingCartAndSessionStorage() {
+    this.productsInCart.forEach((productInCart) => {
+      sessionStorage.removeItem(`p-#${productInCart.id}`);
+    });
+    this.productsInCart = [];
+    sessionStorage.setItem('shoppingCartCounterVal', '0');
+    this.dataSource.data = [];
+    this.sharedService.resetShoppingCartCurrentSizeValue();
+  }
+
   returnProductCartItem(product: Product, amount: number): ProductCartItem {
     const productCartItem: ProductCartItem = {
       id: product.id,
@@ -79,7 +116,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
   }
 
   updateProductCartItem(product: ProductCartItem, amount: number): void {
-    product.amount = amount;
+    product.amount = Number(amount.toFixed(2));
     const newTotalPrice = product.price * product.amount;
     product.totalPrice = newTotalPrice.toFixed(2);
   }

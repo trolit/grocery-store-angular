@@ -71,6 +71,10 @@ export class SidebarComponent implements OnInit {
     this.shoppingCartCurrentSize += 1;
   }
 
+  resetShoppingCartCurrentSizeValue() {
+    this.shoppingCartCurrentSize = 0;
+  }
+
   onProductNameInputKeyUp(): void {
     if (this.isTypingTimerInvoked === false) {
       this.isTypingTimerInvoked = true;
