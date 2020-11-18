@@ -153,5 +153,6 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     if (counter > 0) {
       this.updateOrderPrice();
     }
+    this.sharedService.updateShoppingCartCurrentSize();
   }
 }

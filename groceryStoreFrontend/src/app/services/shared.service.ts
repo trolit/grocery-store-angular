@@ -19,6 +19,7 @@ export class SharedService {
   private increaseShoppingCartCurrentSizeValueRef: () => void;
   private resetShoppingCartCurrentSizeValueRef: () => void;
   private decreaseShoppingCartCurrentSizeValueRef: () => void;
+  private updateShoppingCartCurrentSizeRef: () => void;
 
   onProductsFilteringRequest(filterProductsByQuery: () => void) {
     this.filterProductsByQueryRef = filterProductsByQuery;
@@ -66,6 +67,14 @@ export class SharedService {
 
   onShoppingCartCurrentSizeValueResetRequest(resetShoppingCartCurrentSizeValue: () => void) {
     this.resetShoppingCartCurrentSizeValueRef = resetShoppingCartCurrentSizeValue;
+  }
+
+  onUpdateShoppingCartCurrentSizeRequest(updateShoppingCartCurrentSize: () => void) {
+    this.updateShoppingCartCurrentSizeRef = updateShoppingCartCurrentSize;
+  }
+
+  updateShoppingCartCurrentSize() {
+    this.updateShoppingCartCurrentSizeRef();
   }
 
   increaseShoppingCartCurrentSizeValue() {

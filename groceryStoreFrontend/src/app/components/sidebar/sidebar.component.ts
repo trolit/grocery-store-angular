@@ -46,7 +46,6 @@ export class SidebarComponent implements OnInit {
     this.defaultValues();
     this.getCategories();
     this.getMeasurements();
-    this.shoppingCartCurrentSize = Number(sessionStorage.getItem('shoppingCartCounterVal'));
     this.sharedService.onIncreaseShoppingCartCurrentSizeValueRequest(
       this.increaseShoppingCartCurrentSizeValue.bind(this),
     );
@@ -55,6 +54,9 @@ export class SidebarComponent implements OnInit {
     );
     this.sharedService.onDecreaseShoppingCartCurrentSizeValueRequest(
       this.decreaseShoppingCartCurrentSizeValue.bind(this),
+    );
+    this.sharedService.onUpdateShoppingCartCurrentSizeRequest(
+      this.updateShoppingCartCurrentSize.bind(this),
     );
     timer(500)
       .pipe(first())
@@ -68,6 +70,10 @@ export class SidebarComponent implements OnInit {
     if (this.productNameInput !== '') {
       this.isTyping = true;
     }
+  }
+
+  updateShoppingCartCurrentSize(): void {
+    this.shoppingCartCurrentSize = Number(sessionStorage.getItem('shoppingCartCounterVal'));
   }
 
   increaseShoppingCartCurrentSizeValue() {
