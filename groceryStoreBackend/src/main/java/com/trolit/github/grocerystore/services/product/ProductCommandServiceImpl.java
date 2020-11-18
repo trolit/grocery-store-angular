@@ -151,7 +151,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
 
     private boolean checkIfProductsOrderIsPossible(List<String> productsWithQuantity) {
         boolean flag = false;
-        for (int i = 0; i < productsWithQuantity.size(); i++) {
+        for (int i = 0; i < productsWithQuantity.size(); i+=2) {
             if (i + 1 >= productsWithQuantity.size()) {
                 break;
             }
