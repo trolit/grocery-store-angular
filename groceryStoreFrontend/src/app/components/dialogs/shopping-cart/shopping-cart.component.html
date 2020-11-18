@@ -1,4 +1,4 @@
-<div *ngIf="dataSource !== null">
+<div *ngIf="dataSource.length > 0">
     <h3 class="text-center"><span class="iconify" data-icon="carbon:summary-kpi" data-inline="true"
             style="height: 3.5rem; width: 3.5rem;"></span>
         <br /> order summary</h3>
@@ -33,7 +33,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
-<div *ngIf="dataSource === null" class="text-center">
+<div *ngIf="dataSource.length <= 0" class="text-center">
     <span class="iconify" data-icon="emojione:dog" data-inline="true" style="width: 5rem; height: 5rem;"></span>
     <br /><br />
     <span style="color: gray;">Shopping cart feels empty <span class="iconify" data-icon="whh:minisad"
