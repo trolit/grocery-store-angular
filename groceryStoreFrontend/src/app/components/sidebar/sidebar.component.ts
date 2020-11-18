@@ -47,6 +47,9 @@ export class SidebarComponent implements OnInit {
     this.getCategories();
     this.getMeasurements();
     this.shoppingCartCurrentSize = Number(sessionStorage.getItem('shoppingCartCounterVal'));
+    this.sharedService.onIncreaseShoppingCartCurrentSizeValueRequest(
+      this.increaseShoppingCartCurrentSizeValue.bind(this),
+    );
   }
 
   onInputChange(inputValue: string): void {
@@ -54,6 +57,10 @@ export class SidebarComponent implements OnInit {
     if (this.productNameInput !== '') {
       this.isTyping = true;
     }
+  }
+
+  increaseShoppingCartCurrentSizeValue() {
+    this.shoppingCartCurrentSize += 1;
   }
 
   onProductNameInputKeyUp(): void {

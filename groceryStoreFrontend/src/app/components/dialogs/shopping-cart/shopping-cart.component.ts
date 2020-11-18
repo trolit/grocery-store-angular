@@ -36,6 +36,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     const productCartItem = this.returnProductCartItem(product, amount);
     if (this.isProductAlreadyInTheCart(product.id) === false) {
       this.productsInCart.push(productCartItem);
+      this.sharedService.increaseShoppingCartCurrentSizeValue();
     } else {
       this.updateProductCartItem(productCartItem, amount);
     }
