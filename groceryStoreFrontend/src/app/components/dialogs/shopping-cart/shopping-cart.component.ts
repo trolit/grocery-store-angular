@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/models/product/product.model';
 import { ProductCartItem } from 'src/app/models/product/productCartItem';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -16,7 +17,8 @@ import { BaseDialog } from '../base-dialog';
 export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> implements OnInit {
   displayedColumns: string[] = ['name', 'amount', 'price', 'totalPrice'];
   productsInCart: ProductCartItem[] = [];
-  dataSource;
+  dataSource: MatTableDataSource<ProductCartItem>;
+  orderPrice: string;
 
   constructor(
     protected dialogRef: MatDialogRef<ShoppingCartComponent>,
@@ -28,7 +30,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
 
   ngOnInit(): void {
     this.tryToLoadProductsFromSessionStorage();
-    this.dataSource = this.productsInCart;
+    this.dataSource = new MatTableDataSource(this.productsInCart);
     this.sharedService.onAddProductToCartRequest(this.addProductToCart.bind(this));
   }
 
@@ -47,7 +49,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     const productCartItem: ProductCartItem = {
       id: product.id,
       name: product.name,
-      amount,
+      amount: Number(amount.toFixed(2)),
       measurement: product.measurement,
       totalPrice: product.totalPrice,
       price: product.price,
@@ -71,7 +73,6 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     product.amount = amount;
     const newTotalPrice = product.price * product.amount;
     product.totalPrice = newTotalPrice.toFixed(2);
-    product.amount = Number(product.amount.toFixed(2));
   }
 
   saveProductInSessionStorage(product: ProductCartItem): void {
