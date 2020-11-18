@@ -18,6 +18,7 @@ export class SharedService {
   private addProductToCartRef: (product: Product, amount: number) => void;
   private increaseShoppingCartCurrentSizeValueRef: () => void;
   private resetShoppingCartCurrentSizeValueRef: () => void;
+  private decreaseShoppingCartCurrentSizeValueRef: () => void;
 
   onProductsFilteringRequest(filterProductsByQuery: () => void) {
     this.filterProductsByQueryRef = filterProductsByQuery;
@@ -59,12 +60,20 @@ export class SharedService {
     this.increaseShoppingCartCurrentSizeValueRef = increaseShoppingCartCurrentSizeValue;
   }
 
+  onDecreaseShoppingCartCurrentSizeValueRequest(decreaseShoppingCartCurrentSizeValue: () => void) {
+    this.decreaseShoppingCartCurrentSizeValueRef = decreaseShoppingCartCurrentSizeValue;
+  }
+
   onShoppingCartCurrentSizeValueResetRequest(resetShoppingCartCurrentSizeValue: () => void) {
     this.resetShoppingCartCurrentSizeValueRef = resetShoppingCartCurrentSizeValue;
   }
 
   increaseShoppingCartCurrentSizeValue() {
     this.increaseShoppingCartCurrentSizeValueRef();
+  }
+
+  decreaseShoppingCartCurrentSizeValue() {
+    this.decreaseShoppingCartCurrentSizeValueRef();
   }
 
   resetShoppingCartCurrentSizeValue() {

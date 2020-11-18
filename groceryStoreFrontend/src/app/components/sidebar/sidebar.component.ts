@@ -53,6 +53,9 @@ export class SidebarComponent implements OnInit {
     this.sharedService.onShoppingCartCurrentSizeValueResetRequest(
       this.resetShoppingCartCurrentSizeValue.bind(this),
     );
+    this.sharedService.onDecreaseShoppingCartCurrentSizeValueRequest(
+      this.decreaseShoppingCartCurrentSizeValue.bind(this),
+    );
     timer(500)
       .pipe(first())
       .subscribe(() => {
@@ -69,6 +72,10 @@ export class SidebarComponent implements OnInit {
 
   increaseShoppingCartCurrentSizeValue() {
     this.shoppingCartCurrentSize += 1;
+  }
+
+  decreaseShoppingCartCurrentSizeValue() {
+    this.shoppingCartCurrentSize -= 1;
   }
 
   resetShoppingCartCurrentSizeValue() {

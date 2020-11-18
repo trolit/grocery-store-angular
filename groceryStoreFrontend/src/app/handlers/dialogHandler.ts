@@ -33,7 +33,8 @@ export class DialogHandler {
 
   toggleShoppingCartDialog(): void {
     this.dialog.open(ShoppingCartComponent, {
-      width: this.basicWidth,
+      width: '500px',
+      autoFocus: false,
     });
   }
 

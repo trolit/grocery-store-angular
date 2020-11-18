@@ -23,10 +23,7 @@ export class ProductsComponent implements OnInit {
   @Input() areProductsVisible: boolean;
   lastFilterQuery: string;
 
-  constructor(
-    private productService: ProductService,
-    private sharedService: SharedService,
-  ) {}
+  constructor(private productService: ProductService, private sharedService: SharedService) {}
 
   ngOnInit(): void {
     this.getProducts();

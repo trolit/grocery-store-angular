@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,7 @@ import { BaseDialog } from '../base-dialog';
   styleUrls: ['./shopping-cart.component.scss'],
 })
 export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> implements OnInit {
-  displayedColumns: string[] = ['name', 'amount', 'price', 'totalPrice'];
+  displayedColumns: string[] = ['name', 'amount', 'price', 'totalPrice', ' '];
   productsInCart: ProductCartItem[] = [];
   dataSource: MatTableDataSource<ProductCartItem>;
   orderPrice: string;
@@ -46,6 +47,20 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     }
     this.saveProductInSessionStorage(productCartItem);
     this.updateOrderPrice();
+  }
+
+  removeProductFromCart(id: number): void {
+    for (let i = 0; i < this.productsInCart.length; i += 1) {
+      if (this.productsInCart[i].id === id) {
+        this.productsInCart.splice(i, 1);
+        this.dataSource.data.splice(i, 1);
+        this.dataSource._updateChangeSubscription();
+        sessionStorage.removeItem(`p-#${id}`);
+        this.updateOrderPrice();
+        this.sharedService.decreaseShoppingCartCurrentSizeValue();
+        break;
+      }
+    }
   }
 
   updateOrderPrice(): void {
