@@ -4,6 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { SnackBarHandler } from 'src/app/handlers/snackbarHandler';
 import { Product } from 'src/app/models/product/product.model';
 import { ProductCartItem } from 'src/app/models/product/productCartItem';
 import { ProductOrder } from 'src/app/models/product/productOrder.model';
@@ -27,6 +28,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     protected dialogRef: MatDialogRef<ShoppingCartComponent>,
     protected sharedService: SharedService,
     protected productService: ProductService,
+    protected snackBarHandler: SnackBarHandler,
   ) {
     super(dialogRef, sharedService);
   }
@@ -75,11 +77,15 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     const order = this.buildOrderBody();
     this.productService.placeOrder(order).subscribe(
       () => {
-        console.log('order finished!');
+        this.snackBarHandler.openSnackBarWithMessage(`Order request sent successfully!`);
         this.clearShoppingCartAndSessionStorage();
+        this.dialogRef.close();
       },
       () => {
-        console.log('error bruh :(');
+        this.snackBarHandler.openSnackBarWithMessage(
+          'Order request failed :(',
+          'custom-snackbar-2',
+        );
       },
     );
   }
