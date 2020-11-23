@@ -6,7 +6,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackBarHandler } from 'src/app/handlers/snackbarHandler';
 import { Product } from 'src/app/models/product/product.model';
-import { ProductCartItem } from 'src/app/models/product/productCartItem';
+import { ProductCartItem } from 'src/app/models/product/productCartItem.model';
 import { ProductOrder } from 'src/app/models/product/productOrder.model';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SharedService } from 'src/app/services/shared.service';
