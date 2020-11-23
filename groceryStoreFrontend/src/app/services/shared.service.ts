@@ -23,6 +23,8 @@ export class SharedService {
   private updateShoppingCartCurrentSizeRef: () => void;
   private updateStockOfEachOrderedProductRef: (order: ProductOrder) => void;
 
+  /* ******** BINDING FUNCTIONS ********* */
+
   onProductsFilteringRequest(filterProductsByQuery: () => void) {
     this.filterProductsByQueryRef = filterProductsByQuery;
   }
@@ -79,53 +81,11 @@ export class SharedService {
     this.updateStockOfEachOrderedProductRef = updateStockOfEachOrderedProduct;
   }
 
-  requestStockUpdateOfEachOrderedProduct(order: ProductOrder) {
-    this.updateStockOfEachOrderedProductRef(order);
-  }
-
-  updateShoppingCartCurrentSize() {
-    this.updateShoppingCartCurrentSizeRef();
-  }
-
-  increaseShoppingCartCurrentSizeValue() {
-    this.increaseShoppingCartCurrentSizeValueRef();
-  }
-
-  decreaseShoppingCartCurrentSizeValue() {
-    this.decreaseShoppingCartCurrentSizeValueRef();
-  }
-
-  resetShoppingCartCurrentSizeValue() {
-    this.resetShoppingCartCurrentSizeValueRef();
-  }
-
-  requestProductAdd(product: Product) {
-    this.addProductRef(product);
-  }
-
-  requestProductAddToCart(product: Product, amount: number) {
-    this.addProductToCartRef(product, amount);
-  }
-
   onReturnAllProductsRequest(returnAllProducts: () => Product[]) {
     this.returnAllProductsRef = returnAllProducts;
   }
 
-  requestProductPriceOverride(productPrice: ProductPrice) {
-    this.overrideProductPriceRef(productPrice);
-  }
-
-  requestProductsFiltering(query: string) {
-    this.filterProductsByQueryRef(query);
-  }
-
-  requestProductRemoval(id: number) {
-    this.removeProductRef(id);
-  }
-
-  requestAllProducts(): Product[] {
-    return this.returnAllProductsRef();
-  }
+  /* ******** REQUESTS (CALLABLE VIA OTHER COMPONENTS) ********* */
 
   requestProductsSorting(field: string) {
     switch (field) {
@@ -142,5 +102,49 @@ export class SharedService {
         this.clearSortRef();
         break;
     }
+  }
+
+  requestProductPriceOverride(productPrice: ProductPrice) {
+    this.overrideProductPriceRef(productPrice);
+  }
+
+  requestProductRemoval(id: number) {
+    this.removeProductRef(id);
+  }
+
+  requestProductAdd(product: Product) {
+    this.addProductRef(product);
+  }
+
+  requestProductAddToCart(product: Product, amount: number) {
+    this.addProductToCartRef(product, amount);
+  }
+
+  increaseShoppingCartCurrentSizeValue() {
+    this.increaseShoppingCartCurrentSizeValueRef();
+  }
+
+  decreaseShoppingCartCurrentSizeValue() {
+    this.decreaseShoppingCartCurrentSizeValueRef();
+  }
+
+  resetShoppingCartCurrentSizeValue() {
+    this.resetShoppingCartCurrentSizeValueRef();
+  }
+
+  updateShoppingCartCurrentSize() {
+    this.updateShoppingCartCurrentSizeRef();
+  }
+
+  requestProductsFiltering(query: string) {
+    this.filterProductsByQueryRef(query);
+  }
+
+  requestAllProducts(): Product[] {
+    return this.returnAllProductsRef();
+  }
+
+  requestStockUpdateOfEachOrderedProduct(order: ProductOrder) {
+    this.updateStockOfEachOrderedProductRef(order);
   }
 }
