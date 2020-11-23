@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { Product } from 'src/app/models/product/product.model';
 import { ProductOrder } from 'src/app/models/product/productOrder.model';
-import { ProductPrice } from 'src/app/models/product/productPrice.model';
+import { ProductPriceUpdate } from 'src/app/models/product/productPriceUpdate.model';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -197,18 +197,18 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  overrideProductPrice(productPrice: ProductPrice): void {
-    this.overrideProductPriceInArray(this.products, productPrice);
-    this.overrideProductPriceInArray(this.nonSortedProducts, productPrice);
+  overrideProductPrice(productPriceUpdate: ProductPriceUpdate): void {
+    this.overrideProductPriceInArray(this.products, productPriceUpdate);
+    this.overrideProductPriceInArray(this.nonSortedProducts, productPriceUpdate);
   }
 
-  overrideProductPriceInArray(array: Product[], productPrice: ProductPrice): void {
+  overrideProductPriceInArray(array: Product[], productPriceUpdate: ProductPriceUpdate): void {
     array.forEach((elem) => {
-      if (elem.id === productPrice.id) {
-        elem.price = productPrice.price;
-        elem.previousPrice = productPrice.previousPrice;
-        elem.percentagePriceDiff = productPrice.percentagePriceDiff;
-        elem.priceStatus = productPrice.priceStatus;
+      if (elem.id === productPriceUpdate.id) {
+        elem.price = productPriceUpdate.price;
+        elem.previousPrice = productPriceUpdate.previousPrice;
+        elem.percentagePriceDiff = productPriceUpdate.percentagePriceDiff;
+        elem.priceStatus = productPriceUpdate.priceStatus;
       }
     });
   }

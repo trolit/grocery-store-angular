@@ -1,6 +1,7 @@
-export interface ProductCreate {
+import { ProductMeasurement } from './productMeasurement.model';
+
+export interface ProductCreate extends ProductMeasurement {
   categoryId: number;
-  measurement: string;
   name: string;
   price: number;
   stock: number;

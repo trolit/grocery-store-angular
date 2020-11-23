@@ -1,4 +1,4 @@
-export interface ProductPrice {
+export interface ProductPriceUpdate {
   id: number;
   price: number;
   previousPrice: number;

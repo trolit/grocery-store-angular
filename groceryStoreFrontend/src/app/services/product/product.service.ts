@@ -9,7 +9,7 @@ import { ProductMeasurement } from 'src/app/models/product/productMeasurement.mo
 import { StatusResponse } from 'src/app/models/statusResponse.model';
 import { ProductCreate } from 'src/app/models/product/productCreate.model';
 import { ProductPercentage } from 'src/app/models/product/productPercentage.model';
-import { ProductPrice } from 'src/app/models/product/productPrice.model';
+import { ProductPriceUpdate } from 'src/app/models/product/productPriceUpdate.model';
 import { ProductOrder } from 'src/app/models/product/productOrder.model';
 
 @Injectable({
@@ -57,8 +57,8 @@ export class ProductService {
   changeProductPriceByPercentage(
     id: number,
     productPercentage: ProductPercentage,
-  ): Observable<ProductPrice> {
-    return this.http.patch<ProductPrice>(
+  ): Observable<ProductPriceUpdate> {
+    return this.http.patch<ProductPriceUpdate>(
       `${environment.apiUrl}/products/${id}/price`,
       productPercentage,
     );

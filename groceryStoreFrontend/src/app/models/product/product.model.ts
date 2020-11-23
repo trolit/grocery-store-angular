@@ -1,9 +1,7 @@
-import { BaseModel } from '../base.model';
+import { BaseProductModel } from './base.product.model';
 import { ProductTotalPrice } from './productTotalPrice.modal';
 
-export interface Product extends BaseModel, ProductTotalPrice {
-  price: number;
-  stock: number;
+export interface Product extends BaseProductModel, ProductTotalPrice {
   category: string;
   categoryId: number;
   measurement: string;

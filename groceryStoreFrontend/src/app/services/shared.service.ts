@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product/product.model';
 import { ProductOrder } from '../models/product/productOrder.model';
-import { ProductPrice } from '../models/product/productPrice.model';
+import { ProductPriceUpdate } from '../models/product/productPriceUpdate.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class SharedService {
   private sortProductsByStockDescRef: () => void;
   private sortProductsByPriceAscRef: () => void;
   private clearSortRef: () => void;
-  private overrideProductPriceRef: (productPrice: ProductPrice) => void;
+  private overrideProductPriceRef: (productPriceUpdate: ProductPriceUpdate) => void;
   private removeProductRef: (id: number) => void;
   private addProductRef: (product: Product) => void;
   private returnAllProductsRef: () => Product[];
@@ -104,8 +104,8 @@ export class SharedService {
     }
   }
 
-  requestProductPriceOverride(productPrice: ProductPrice) {
-    this.overrideProductPriceRef(productPrice);
+  requestProductPriceOverride(productPriceUpdate: ProductPriceUpdate) {
+    this.overrideProductPriceRef(productPriceUpdate);
   }
 
   requestProductRemoval(id: number) {
