@@ -3,6 +3,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { Product } from 'src/app/models/product/product.model';
+import { ProductOrder } from 'src/app/models/product/productOrder.model';
 import { ProductPrice } from 'src/app/models/product/productPrice.model';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -22,6 +23,9 @@ export class ProductsComponent implements OnInit {
   wereProductsLoaded = false;
   @Input() areProductsVisible: boolean;
   lastFilterQuery: string;
+  readonly SMALL_RES: number = 1030;
+  readonly MED_RES: number = 1400;
+  readonly HIGH_RES: number = 1800;
 
   constructor(private productService: ProductService, private sharedService: SharedService) {}
 
@@ -46,6 +50,32 @@ export class ProductsComponent implements OnInit {
     this.sharedService.onProductRemoveRequest(this.removeProduct.bind(this));
     this.sharedService.onAddProductRequest(this.addProductAndRearrangeData.bind(this));
     this.sharedService.onReturnAllProductsRequest(this.returnAllProducts.bind(this));
+    this.sharedService.onUpdateStockOfEachOrderedProductRequest(
+      this.updateStockPropertyOfEachOrderedProduct.bind(this),
+    );
+  }
+
+  private updateStockPropertyOfEachOrderedProduct(order: ProductOrder) {
+    const orderArr = order.order;
+    for (let i = 0; i < orderArr.length; i += 2) {
+      const productId = orderArr[i];
+      const orderedAmount = orderArr[i + 1];
+      this.updateProductStockInGivenArrayIfPossible(this.products, productId, orderedAmount);
+    }
+  }
+
+  private updateProductStockInGivenArrayIfPossible(
+    array: Product[],
+    productId: string,
+    orderedAmount: string,
+  ) {
+    for (let i = 0; i < array.length; i += 1) {
+      if (array[i].id === Number(productId)) {
+        const orderedAmountAsNumber = Number(orderedAmount);
+        array[i].stock -= orderedAmountAsNumber;
+        break;
+      }
+    }
   }
 
   private getProducts(): void {
@@ -110,13 +140,13 @@ export class ProductsComponent implements OnInit {
   }
 
   private defineColsNumber(currentWidth: number): void {
-    if (currentWidth <= 1030) {
+    if (currentWidth <= this.SMALL_RES) {
       this.cols = 1;
-    } else if (currentWidth > 1030 && currentWidth < 1400) {
+    } else if (currentWidth > this.SMALL_RES && currentWidth < this.MED_RES) {
       this.cols = 2;
-    } else if (currentWidth >= 1400 && currentWidth < 1800) {
+    } else if (currentWidth >= this.MED_RES && currentWidth < this.HIGH_RES) {
       this.cols = 3;
-    } else if (currentWidth >= 1800) {
+    } else if (currentWidth >= this.HIGH_RES) {
       this.cols = 4;
     } else {
       this.cols = 5;

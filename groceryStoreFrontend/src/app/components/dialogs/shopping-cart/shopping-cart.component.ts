@@ -80,6 +80,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
         this.snackBarHandler.openSnackBarWithMessage(`Order request sent successfully!`);
         this.clearShoppingCartAndSessionStorage();
         this.dialogRef.close();
+        this.sharedService.requestStockUpdateOfEachOrderedProduct(order);
       },
       () => {
         this.snackBarHandler.openSnackBarWithMessage(

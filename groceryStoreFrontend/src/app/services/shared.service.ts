@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product/product.model';
+import { ProductOrder } from '../models/product/productOrder.model';
 import { ProductPrice } from '../models/product/productPrice.model';
 
 @Injectable({
@@ -20,6 +21,7 @@ export class SharedService {
   private resetShoppingCartCurrentSizeValueRef: () => void;
   private decreaseShoppingCartCurrentSizeValueRef: () => void;
   private updateShoppingCartCurrentSizeRef: () => void;
+  private updateStockOfEachOrderedProductRef: (order: ProductOrder) => void;
 
   onProductsFilteringRequest(filterProductsByQuery: () => void) {
     this.filterProductsByQueryRef = filterProductsByQuery;
@@ -71,6 +73,14 @@ export class SharedService {
 
   onUpdateShoppingCartCurrentSizeRequest(updateShoppingCartCurrentSize: () => void) {
     this.updateShoppingCartCurrentSizeRef = updateShoppingCartCurrentSize;
+  }
+
+  onUpdateStockOfEachOrderedProductRequest(updateStockOfEachOrderedProduct: () => void) {
+    this.updateStockOfEachOrderedProductRef = updateStockOfEachOrderedProduct;
+  }
+
+  requestStockUpdateOfEachOrderedProduct(order: ProductOrder) {
+    this.updateStockOfEachOrderedProductRef(order);
   }
 
   updateShoppingCartCurrentSize() {
