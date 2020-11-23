@@ -1,6 +1,6 @@
 <div *ngIf="!products && wereProductsLoaded" class="text-center" style="position: absolute; top: 70%; left: 37%;">
-    <span class="iconify owl-icon-2" data-icon="emojione:owl" data-inline="false"></span><br/>
-    <span class="roboto-font noProductsFound-text">0 products found matching the filters</span>
+    <span class="iconify owl-icon-2" data-icon="emojione:owl" data-inline="false"></span><br />
+    <span class="roboto-font noProductsFound-text">No products found that match the filters</span>
 </div>
 <div *ngIf="areProductsVisible && products" id="products" class="home-products">
     <mat-grid-list class="md-grid-list" [cols]="cols" (window:resize)="onScreenResize($event)" rowHeight="400px">
@@ -64,8 +64,8 @@
                     <div *ngIf="product.stock == 0" style="margin-top: 12%;">
                         <div class="text-center card-footer-outOfStock">
                             <span>
-                                <span class="iconify owl-icon" data-icon="emojione:owl" data-inline="false"></span> 
-                                <br/>
+                                <span class="iconify owl-icon" data-icon="emojione:owl" data-inline="false"></span>
+                                <br />
                                 <span class="outOfStockText">out of stock</span>
                             </span>
                         </div>

@@ -26,6 +26,9 @@ export class ProductsComponent implements OnInit {
   readonly SMALL_RES: number = 1030;
   readonly MED_RES: number = 1400;
   readonly HIGH_RES: number = 1800;
+  readonly SORT_BY_STOCK: string = 'stock';
+  readonly SORT_BY_PRICE: string = 'price';
+  readonly SORT_BY_CATEGORY: string = 'category';
 
   constructor(private productService: ProductService, private sharedService: SharedService) {}
 
@@ -35,10 +38,19 @@ export class ProductsComponent implements OnInit {
     this.bindMethodsForSharedService();
   }
 
+  /* ******** EVENTS ********* */
+
   onScreenResize(event: UIEvent): void {
     const currentWidth = (event.target as Window).innerWidth;
     this.defineColsNumber(currentWidth);
   }
+
+  onSliderInputChange(event: MatSliderChange, product: Product): void {
+    this.totalPrice = product.price * event.value;
+    product.totalPrice = this.totalPrice.toFixed(2);
+  }
+
+  /* ******** INITIALIZERS ********* */
 
   private bindMethodsForSharedService(): void {
     this.sharedService.onProductsFilteringRequest(this.filterProductsByQuery.bind(this));
@@ -54,6 +66,81 @@ export class ProductsComponent implements OnInit {
       this.updateStockPropertyOfEachOrderedProduct.bind(this),
     );
   }
+
+  private getProducts(): void {
+    this.productService.getProducts().subscribe((res) => {
+      this.setForEachProductTotalPrice(res);
+      this.products = res;
+      this.nonSortedProducts = res;
+      this.nonFilteredNorSortedProducts = res;
+      this.wereProductsLoaded = true;
+      this.lastFilterQuery = '';
+    });
+  }
+
+  private defineColsNumber(currentWidth: number): void {
+    if (currentWidth <= this.SMALL_RES) {
+      this.cols = 1;
+    } else if (currentWidth > this.SMALL_RES && currentWidth < this.MED_RES) {
+      this.cols = 2;
+    } else if (currentWidth >= this.MED_RES && currentWidth < this.HIGH_RES) {
+      this.cols = 3;
+    } else if (currentWidth >= this.HIGH_RES) {
+      this.cols = 4;
+    } else {
+      this.cols = 5;
+    }
+  }
+
+  /* ******** PRODUCT SORTING ********* */
+
+  private sortProductsIfLastSortKeywordIsNotNone(): void {
+    switch (this.lastSortKeyword) {
+      case this.SORT_BY_STOCK:
+        this.sortProductsByStockDesc();
+        break;
+      case this.SORT_BY_PRICE:
+        this.sortProductsByPriceAsc();
+        break;
+      case this.SORT_BY_CATEGORY:
+        this.sortProductsByCategory();
+        break;
+      default:
+        break;
+    }
+  }
+
+  private sortProductsByCategory(): void {
+    this.products = [...this.products].sort((a, b) => a.category.localeCompare(b.category));
+    this.updateLastSortKeywordVariable(this.SORT_BY_CATEGORY);
+  }
+
+  private sortProductsByPriceAsc(): void {
+    this.products = [...this.products].sort((a, b) => a.price - b.price);
+    this.updateLastSortKeywordVariable(this.SORT_BY_PRICE);
+  }
+
+  private sortProductsByStockDesc(): void {
+    this.products = [...this.products].sort((a, b) => b.stock - a.stock);
+    this.updateLastSortKeywordVariable(this.SORT_BY_STOCK);
+  }
+
+  private updateLastSortKeywordVariable(sortKeyword: string): void {
+    this.lastSortKeyword = sortKeyword;
+  }
+
+  private clearSort(): void {
+    this.products = this.nonSortedProducts;
+    this.updateLastSortKeywordVariable('none');
+  }
+
+  private setForEachProductTotalPrice(array: Product[]): void {
+    array.forEach((item) => {
+      item.totalPrice = item.price.toString();
+    });
+  }
+
+  /* ******** PRODUCT UPDATING ********* */
 
   private updateStockPropertyOfEachOrderedProduct(order: ProductOrder) {
     const orderArr = order.order;
@@ -78,84 +165,10 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  private getProducts(): void {
-    this.productService.getProducts().subscribe((res) => {
-      this.setForEachProductTotalPrice(res);
-      this.products = res;
-      this.nonSortedProducts = res;
-      this.nonFilteredNorSortedProducts = res;
-      this.wereProductsLoaded = true;
-      this.lastFilterQuery = '';
-    });
-  }
+  /* ******** OTHER ********* */
 
-  setForEachProductTotalPrice(array: Product[]): void {
-    array.forEach((item) => {
-      item.totalPrice = item.price.toString();
-    });
-  }
-
-  returnAllProducts(): Product[] {
+  private returnAllProducts(): Product[] {
     return this.nonFilteredNorSortedProducts;
-  }
-
-  private sortProductsIfLastSortKeywordIsNotNone(): void {
-    switch (this.lastSortKeyword) {
-      case 'stock':
-        this.sortProductsByStockDesc();
-        break;
-      case 'price':
-        this.sortProductsByPriceAsc();
-        break;
-      case 'category':
-        this.sortProductsByCategory();
-        break;
-      default:
-        break;
-    }
-  }
-
-  private sortProductsByCategory(): void {
-    this.products = [...this.products].sort((a, b) => a.category.localeCompare(b.category));
-    this.updateLastSortKeywordVariable('category');
-  }
-
-  private sortProductsByPriceAsc(): void {
-    this.products = [...this.products].sort((a, b) => a.price - b.price);
-    this.updateLastSortKeywordVariable('price');
-  }
-
-  private sortProductsByStockDesc(): void {
-    this.products = [...this.products].sort((a, b) => b.stock - a.stock);
-    this.updateLastSortKeywordVariable('stock');
-  }
-
-  private updateLastSortKeywordVariable(sortKeyword: string): void {
-    this.lastSortKeyword = sortKeyword;
-  }
-
-  private clearSort(): void {
-    this.products = this.nonSortedProducts;
-    this.updateLastSortKeywordVariable('none');
-  }
-
-  private defineColsNumber(currentWidth: number): void {
-    if (currentWidth <= this.SMALL_RES) {
-      this.cols = 1;
-    } else if (currentWidth > this.SMALL_RES && currentWidth < this.MED_RES) {
-      this.cols = 2;
-    } else if (currentWidth >= this.MED_RES && currentWidth < this.HIGH_RES) {
-      this.cols = 3;
-    } else if (currentWidth >= this.HIGH_RES) {
-      this.cols = 4;
-    } else {
-      this.cols = 5;
-    }
-  }
-
-  onSliderInputChange(event: MatSliderChange, product: Product): void {
-    this.totalPrice = product.price * event.value;
-    product.totalPrice = this.totalPrice.toFixed(2);
   }
 
   sendProductToCart(productId: number): void {
