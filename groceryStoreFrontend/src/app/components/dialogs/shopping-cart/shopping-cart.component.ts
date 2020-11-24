@@ -54,7 +54,6 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
   removeProductFromCart(id: number): void {
     for (let i = 0; i < this.productsInCart.length; i += 1) {
       if (this.productsInCart[i].id === id) {
-        this.productsInCart.splice(i, 1);
         this.dataSource.data.splice(i, 1);
         this.dataSource._updateChangeSubscription();
         sessionStorage.removeItem(`p-#${id}`);
