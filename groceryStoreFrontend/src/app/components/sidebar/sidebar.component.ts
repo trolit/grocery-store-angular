@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { DialogHandler } from 'src/app/handlers/dialogHandler';
@@ -40,6 +40,7 @@ export class SidebarComponent implements OnInit {
     private productService: ProductService,
     private sharedService: SharedService,
     private dialogHandler: DialogHandler,
+    private cdRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +75,7 @@ export class SidebarComponent implements OnInit {
 
   updateShoppingCartCurrentSize(): void {
     this.shoppingCartCurrentSize = Number(sessionStorage.getItem('shoppingCartCounterVal'));
+    this.cdRef.detectChanges();
   }
 
   increaseShoppingCartCurrentSizeValue() {
