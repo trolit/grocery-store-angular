@@ -63,4 +63,8 @@ export class OfflineSnackbarComponent implements OnDestroy {
       },
     );
   }
+
+  refreshPage(): void {
+    window.location.reload();
+  }
 }
