@@ -16,12 +16,12 @@ export class ErrorHandler {
   constructor(
     private connectionService: ConnectionService,
     private snackBarHandler: SnackBarHandler,
-    private commonMethodsHander: CommonMethodsHandler,
+    private commonMethodsHandler: CommonMethodsHandler,
   ) {}
 
   handleError<T>(operation = 'operation', result?: T) {
     return (error: Error): Observable<T> => {
-      // this.isApiOnline();
+      this.isApiOnline();
       console.log(`${operation} failed: ${error.message}`);
       return of(result);
     };
@@ -35,13 +35,10 @@ export class ErrorHandler {
           this.isCheckingApi = false;
         },
         () => {
-          this.commonMethodsHander.displayOfflineServerLayer();
+          this.commonMethodsHandler.displayOfflineServerLayer();
           this.isConnectionLost = true;
           this.snackBarHandler.createSnackbarFromComponent(OfflineSnackbarComponent);
-          // this.snackBarHandler.openSnackBar();
-          // TO:DO toggle snackbar
           this.isCheckingApi = false;
-          // TO:DO queue isApiOnline interval(every 5 seconds)
         },
       );
     }
