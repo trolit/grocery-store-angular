@@ -1,6 +1,6 @@
 table {
     width: 100%;
-    text-align: right;
+    text-align: center;
 }
 
 .mat-cell {
@@ -8,5 +8,6 @@ table {
 }
 
 .mat-header-cell {
-    text-align: right;
+    text-align: center;
+    padding: 10px 10px;
 }

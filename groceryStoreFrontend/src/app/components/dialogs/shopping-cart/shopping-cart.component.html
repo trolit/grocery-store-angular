@@ -1,8 +1,9 @@
-<div *ngIf="dataSource.data.length > 0">
-    <h3 class="text-center"><span class="iconify" data-icon="carbon:summary-kpi" data-inline="true"
-            style="height: 3.5rem; width: 3.5rem;"></span>
-        <br /> order summary</h3>
-    <mat-dialog-content>
+<mat-dialog-content>
+    <div *ngIf="dataSource.data.length > 0">
+        <h3 class="text-center"><span class="iconify" data-icon="carbon:summary-kpi" data-inline="true"
+                style="height: 3.5rem; width: 3.5rem;"></span>
+            <br /> order summary</h3>
+
         <table mat-table [dataSource]="dataSource">
 
             <ng-container matColumnDef="name">
@@ -41,18 +42,18 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-    </mat-dialog-content>
-    <span style="color: gray; float: right; margin-top: 2%;">$ {{orderPrice}} total</span>
-    <br />
-</div>
-<div *ngIf="dataSource.data.length <= 0" class="text-center">
-    <span class="iconify" data-icon="emojione:dog" data-inline="true" style="width: 5rem; height: 5rem;"></span>
-    <br /><br />
-    <span style="color: gray;">Shopping cart feels empty <span class="iconify" data-icon="whh:minisad"
-            data-inline="true"></span></span>
-</div>
-<div style="margin-top: 8%;">
-    <button mat-button (click)="dismissDialog()" style="float: left;">Close</button>
-    <button *ngIf="dataSource.data.length > 0" mat-button color="accent" style="float: right;"
-        (click)="makeOrder()">Make order</button>
-</div>
+        <span style="color: gray; float: right; margin-top: 2%;">$ {{orderPrice}} total</span>
+        <br />
+    </div>
+    <div *ngIf="dataSource.data.length <= 0" class="text-center">
+        <span class="iconify" data-icon="emojione:dog" data-inline="true" style="width: 5rem; height: 5rem;"></span>
+        <br /><br />
+        <span style="color: gray;">Shopping cart feels empty <span class="iconify" data-icon="whh:minisad"
+                data-inline="true"></span></span>
+    </div>
+    <div style="margin-top: 8%;">
+        <button mat-button (click)="dismissDialog()" style="float: left;">Close</button>
+        <button *ngIf="dataSource.data.length > 0" mat-button color="accent" style="float: right;"
+            (click)="makeOrder()">Make order</button>
+    </div>
+</mat-dialog-content>
