@@ -28,9 +28,9 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
   constructor(
     protected dialogRef: MatDialogRef<ShoppingCartComponent>,
     protected sharedService: SharedService,
-    protected productService: ProductService,
-    protected snackBarHandler: SnackBarHandler,
-    protected errorHandler: ErrorHandler,
+    private productService: ProductService,
+    private snackBarHandler: SnackBarHandler,
+    private errorHandler: ErrorHandler,
   ) {
     super(dialogRef, sharedService);
   }

@@ -17,9 +17,9 @@ export class DeleteProductComponent extends BaseDialog<DeleteProductComponent> {
   constructor(
     protected dialogRef: MatDialogRef<DeleteProductComponent>,
     protected sharedService: SharedService,
-    protected productService: ProductService,
-    protected snackbarHandler: SnackBarHandler,
-    protected errorHandler: ErrorHandler,
+    private productService: ProductService,
+    private snackbarHandler: SnackBarHandler,
+    private errorHandler: ErrorHandler,
   ) {
     super(dialogRef, sharedService);
   }

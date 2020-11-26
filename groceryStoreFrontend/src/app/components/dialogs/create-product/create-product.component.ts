@@ -23,11 +23,11 @@ export class CreateProductComponent extends BaseDialog<CreateProductComponent> i
 
   constructor(
     protected dialogRef: MatDialogRef<CreateProductComponent>,
-    public sharedService: SharedService,
-    protected productService: ProductService,
-    protected snackbarHandler: SnackBarHandler,
-    protected categoryService: CategoryService,
-    protected errorHandler: ErrorHandler,
+    protected sharedService: SharedService,
+    private productService: ProductService,
+    private snackbarHandler: SnackBarHandler,
+    private categoryService: CategoryService,
+    private errorHandler: ErrorHandler,
   ) {
     super(dialogRef, sharedService);
   }
