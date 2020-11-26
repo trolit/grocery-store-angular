@@ -28,13 +28,14 @@ export class SnackBarHandler {
     });
   }
 
-  createSnackbarFromComponent<T>(data: ComponentType<T>): void {
+  createSnackbarFromComponent<T>(data: ComponentType<T>): MatSnackBarRef<T> {
     const snackBarRef = this.snackBar.openFromComponent(data, {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       panelClass: ['custom-snackbar-1'],
     });
     this.attachDismissButtons(snackBarRef, 'offlineSnackbarCloseBtn');
+    return snackBarRef;
   }
 
   attachDismissButtons<T>(snackbarRef: MatSnackBarRef<T>, className: string): void {
