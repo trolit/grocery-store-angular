@@ -1,5 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ErrorHandler } from 'src/app/handlers/errorHandler';
 import { SnackBarHandler } from 'src/app/handlers/snackbarHandler';
 import { ProductPercentage } from 'src/app/models/product/productPercentage.model';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -18,9 +19,10 @@ export class ChangeProductPriceComponent
 
   constructor(
     protected dialogRef: MatDialogRef<ChangeProductPriceComponent>,
-    protected productService: ProductService,
-    protected snackbarHandler: SnackBarHandler,
+    private productService: ProductService,
+    private snackbarHandler: SnackBarHandler,
     protected sharedService: SharedService,
+    private errorHandler: ErrorHandler,
   ) {
     super(dialogRef, sharedService);
   }
@@ -46,6 +48,7 @@ export class ChangeProductPriceComponent
           `Error occured while changing product #${id} price :(`,
           'custom-snackbar-2',
         );
+        this.errorHandler.isApiOnline();
       },
     );
   }
