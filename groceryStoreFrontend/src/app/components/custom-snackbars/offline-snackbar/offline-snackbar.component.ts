@@ -47,8 +47,12 @@ export class OfflineSnackbarComponent implements OnDestroy {
   }
 
   private unsubscribeIntervals(): void {
-    this.timeSubscription.unsubscribe();
-    this.triesSubscription.unsubscribe();
+    if (this.timeSubscription !== undefined) {
+      this.timeSubscription.unsubscribe();
+    }
+    if (this.triesSubscription !== undefined) {
+      this.triesSubscription.unsubscribe();
+    }
   }
 
   private tryToConnectToApi(): void {
