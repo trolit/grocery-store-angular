@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ErrorHandler } from 'src/app/handlers/errorHandler';
 import { SnackBarHandler } from 'src/app/handlers/snackbarHandler';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -18,6 +19,7 @@ export class DeleteProductComponent extends BaseDialog<DeleteProductComponent> {
     protected sharedService: SharedService,
     protected productService: ProductService,
     protected snackbarHandler: SnackBarHandler,
+    protected errorHandler: ErrorHandler,
   ) {
     super(dialogRef, sharedService);
   }
@@ -40,6 +42,7 @@ export class DeleteProductComponent extends BaseDialog<DeleteProductComponent> {
       },
       () => {
         this.invokeErrorSnackbar();
+        this.errorHandler.isApiOnline();
       },
     );
   }

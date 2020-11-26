@@ -4,6 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { ErrorHandler } from 'src/app/handlers/errorHandler';
 import { SnackBarHandler } from 'src/app/handlers/snackbarHandler';
 import { Product } from 'src/app/models/product/product.model';
 import { ProductCartItem } from 'src/app/models/product/productCartItem.model';
@@ -29,6 +30,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
     protected sharedService: SharedService,
     protected productService: ProductService,
     protected snackBarHandler: SnackBarHandler,
+    protected errorHandler: ErrorHandler,
   ) {
     super(dialogRef, sharedService);
   }
@@ -86,6 +88,7 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
           'Order request failed :(',
           'custom-snackbar-2',
         );
+        this.errorHandler.isApiOnline();
       },
     );
   }
@@ -148,13 +151,15 @@ export class ShoppingCartComponent extends BaseDialog<ShoppingCartComponent> imp
 
   tryToLoadProductsFromSessionStorage(): void {
     let counter = 0;
-    this.products.forEach((product) => {
-      const sessionStorageItem = sessionStorage.getItem(`p-#${product.id}`);
-      if (sessionStorageItem !== null) {
-        this.productsInCart.push(JSON.parse(sessionStorageItem) as ProductCartItem);
-        counter += 1;
-      }
-    });
+    if (this.products !== undefined) {
+      this.products.forEach((product) => {
+        const sessionStorageItem = sessionStorage.getItem(`p-#${product.id}`);
+        if (sessionStorageItem !== null) {
+          this.productsInCart.push(JSON.parse(sessionStorageItem) as ProductCartItem);
+          counter += 1;
+        }
+      });
+    }
     sessionStorage.setItem('shoppingCartCounterVal', counter.toString());
     if (counter > 0) {
       this.updateOrderPrice();

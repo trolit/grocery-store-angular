@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ErrorHandler } from 'src/app/handlers/errorHandler';
 import { SnackBarHandler } from 'src/app/handlers/snackbarHandler';
 import { Category } from 'src/app/models/category/category.model';
 import { ProductCreate } from 'src/app/models/product/productCreate.model';
@@ -22,10 +23,11 @@ export class CreateProductComponent extends BaseDialog<CreateProductComponent> i
 
   constructor(
     protected dialogRef: MatDialogRef<CreateProductComponent>,
-    protected sharedService: SharedService,
+    public sharedService: SharedService,
     protected productService: ProductService,
     protected snackbarHandler: SnackBarHandler,
     protected categoryService: CategoryService,
+    protected errorHandler: ErrorHandler,
   ) {
     super(dialogRef, sharedService);
   }
@@ -48,6 +50,7 @@ export class CreateProductComponent extends BaseDialog<CreateProductComponent> i
           `Error occured, product not created :(`,
           'custom-snackbar-2',
         );
+        this.errorHandler.isApiOnline();
       },
     );
   }
