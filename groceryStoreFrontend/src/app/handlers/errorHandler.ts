@@ -22,7 +22,7 @@ export class ErrorHandler {
   handleError<T>(operation = 'operation', result?: T) {
     return (error: Error): Observable<T> => {
       this.isApiOnline();
-      console.log(`${operation} failed: ${error.message}`);
+      console.error(`${operation} failed: ${error.message} |> Make sure that server is online.`);
       return of(result);
     };
   }
