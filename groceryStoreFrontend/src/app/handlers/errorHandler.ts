@@ -27,7 +27,7 @@ export class ErrorHandler {
     };
   }
 
-  isApiOnline(): boolean {
+  isApiOnline(): void {
     if (!this.isCheckingApi) {
       this.isCheckingApi = true;
       this.connectionService.pingApi().subscribe(
@@ -37,11 +37,14 @@ export class ErrorHandler {
         () => {
           this.commonMethodsHandler.displayOfflineServerLayer();
           this.isConnectionLost = true;
-          this.snackBarHandler.createSnackbarFromComponent(OfflineSnackbarComponent);
-          this.isCheckingApi = false;
+          const snackbarRef = this.snackBarHandler.createSnackbarFromComponent(
+            OfflineSnackbarComponent,
+          );
+          snackbarRef.afterDismissed().subscribe(() => {
+            this.isCheckingApi = false;
+          });
         },
       );
     }
-    return true;
   }
 }
