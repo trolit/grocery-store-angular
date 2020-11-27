@@ -1,6 +1,6 @@
 <img align="left" height="200" src="https://img.shields.io/badge/--white?logo=Angular&style=for-the-badge&logoColor=red" alt="angular logo"/>
 <h2 align="left"> Grocery Store Angular</h2>
-<p align="justify">Frontend demonstration in Angular 10 for previously made <a href="https://github.com/trolit/grocery-store-themed-API">Spring Boot API</a> using Angular Material, RxJS, Sass(SCSS), Iconify icons. Project includes shopping cart with sessionStorage, snackbar notifications, custom snackbar for missing conn to server, product adding/deleting/sorting/filtering and changing it's price by given percentage. </p>
+<p align="justify">Frontend demonstration in Angular 10 for <a href="https://github.com/trolit/grocery-store-themed-API">v1.2.2 Spring Boot API</a> using Angular Material, RxJS, Sass(SCSS), Iconify icons. Project includes shopping cart with sessionStorage, snackbar notifications, custom snackbar for missing conn to server, product adding/deleting/sorting/filtering and changing it's price by given percentage. </p>
 
 <h3 align="center">{ launch preview }</h3>
 
